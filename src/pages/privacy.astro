@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import LegalPage from '../components/LegalPage.astro';
+import Footer from '../components/Footer.astro';
+
+const sections = [
+  {
+    title: 'Qué datos tratamos',
+    body: 'Tu correo (guardado cifrado y como hash, separado de tu perfil), tus transacciones (de Yape/Plin y, si lo activas, de las alertas de tu banco) y datos técnicos mínimos de seguridad.',
+  },
+  {
+    title: 'Registro por correo del banco',
+    body: 'Solo recibimos los correos que tú reenvías a tu dirección de Chapa. Verificamos que sean de tu banco; si no, los descartamos. Extraemos la transacción y descartamos el contenido del correo: nunca lo guardamos.',
+  },
+  {
+    title: 'Qué NO hacemos',
+    body: 'No accedemos a tu bandeja de entrada, no leemos correos personales, no procesamos imágenes ni adjuntos, y no entramos a tu banca. No vendemos tu información.',
+  },
+  {
+    title: 'Inteligencia artificial',
+    body: 'Para leer la alerta usamos Google Gemini en una modalidad que no usa tu contenido para entrenar. Chapa tampoco entrena modelos con tus datos.',
+  },
+  {
+    title: 'Con quién compartimos',
+    body: 'Solo con proveedores que nos prestan el servicio (Google, Resend, Cloudflare y nuestro proveedor de servidor), como encargados de tratamiento y bajo acuerdos de confidencialidad.',
+  },
+  {
+    title: 'Datos fuera de Perú',
+    body: 'Algunos proveedores procesan datos fuera del Perú. Esta transferencia se hace con tu consentimiento y bajo acuerdos de tratamiento de datos con cada uno.',
+  },
+  {
+    title: 'Seguridad',
+    body: 'Ciframos en tránsito (TLS) y los datos sensibles a nivel de columna; tu dirección de reenvío se guarda hasheada. Validamos la firma y autenticidad (DKIM) de los correos antes de procesarlos.',
+  },
+  {
+    title: 'Tus derechos (ARCO)',
+    body: 'Puedes acceder, rectificar, eliminar tus datos y revocar tu consentimiento. Desde la app puedes desconectar el correo (borra tu dirección y la ingesta) y eliminar tu cuenta. También puedes reclamar ante la Autoridad Nacional de Protección de Datos Personales (ANPD) del MINJUS.',
+  },
+  {
+    title: 'Contacto',
+    body: 'Todavía no publicamos un canal oficial de contacto para temas de privacidad. Mientras tanto, puedes escribirnos desde la propia app.',
+  },
+];
+---
+
+<BaseLayout
+  title="Privacidad y datos — Chapa"
+  description="Cómo Chapa trata tus datos personales. Documento informativo, pendiente de revisión legal."
+  noindex
+>
+  <Header />
+  <main>
+    <LegalPage title="Privacidad y datos" lastUpdated="junio 2026" sections={sections} />
+  </main>
+  <Footer />
+</BaseLayout>

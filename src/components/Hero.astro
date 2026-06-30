@@ -1,0 +1,312 @@
+---
+const REGISTER_URL = 'https://app.chapa.money/register';
+const LOGIN_URL = 'https://app.chapa.money/login';
+---
+
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow">Captura automática · Yape &amp; Plin</p>
+      <h1>
+        Tu dinero,<br />
+        todo en <em>un lugar</em>.
+      </h1>
+      <p class="hero-subtitle">
+        Cada Yape o Plin que te llega se registra solo, apenas suena la notificación en tu
+        teléfono. Nada que anotar, nada que recordar.
+      </p>
+      <div class="hero-actions">
+        <a href={REGISTER_URL} class="btn btn-primary">Crear cuenta gratis</a>
+        <a href={LOGIN_URL} class="btn btn-outline">Iniciar sesión</a>
+      </div>
+      <p class="hero-note">Gratis para empezar · Android (iOS por compilación directa)</p>
+    </div>
+
+    <div class="hero-demo" aria-hidden="true">
+      <div class="notif-banner">
+        <span class="notif-icon">Y</span>
+        <div class="notif-text">
+          <strong>Yape</strong>
+          <span>Has recibido un pago · +S/ 35.00</span>
+        </div>
+      </div>
+
+      <div class="ledger-card">
+        <p class="ledger-label">Hoy</p>
+        <p class="ledger-total">S/ 248.50</p>
+
+        <div class="ledger-row ledger-row-new">
+          <span class="pill" style="background:var(--yape-light);color:var(--yape)">
+            <span class="pill-dot"></span>Yape
+          </span>
+          <span class="ledger-row-text">Juan Pérez</span>
+          <span class="ledger-row-amount">+S/ 35.00</span>
+        </div>
+        <div class="ledger-row">
+          <span class="pill" style="background:var(--plin-light);color:#0277bd">
+            <span class="pill-dot"></span>Plin
+          </span>
+          <span class="ledger-row-text">María Flores</span>
+          <span class="ledger-row-amount">+S/ 60.00</span>
+        </div>
+        <div class="ledger-row">
+          <span class="pill" style="background:var(--warning-light);color:var(--warning)">
+            <span class="pill-dot"></span>Mercado
+          </span>
+          <span class="ledger-row-text">Tottus</span>
+          <span class="ledger-row-amount expense">-S/ 42.30</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--space-xxl) calc(var(--space-xxxl) * 1.3);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 18% 20%, var(--primary-light) 0%, transparent 45%),
+      radial-gradient(circle at 85% 0%, var(--yape-light) 0%, transparent 35%);
+    z-index: -1;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: var(--space-xxxl);
+  }
+
+  .eyebrow {
+    color: var(--primary-deep);
+    margin-bottom: var(--space-lg);
+  }
+
+  h1 {
+    font-size: clamp(40px, 6vw, 64px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: var(--space-lg);
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--primary);
+  }
+
+  .hero-subtitle {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 46ch;
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-note {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* Demo: notificación que "cae" dentro del registro */
+  .hero-demo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 56px;
+  }
+
+  .notif-banner {
+    position: absolute;
+    top: 0;
+    width: calc(100% - 24px);
+    max-width: 320px;
+    background: #fff;
+    border-radius: var(--radius-md);
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
+    padding: var(--space-sm) var(--space-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    animation: notif-cycle 7s var(--ease) infinite;
+  }
+
+  .notif-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    background: var(--yape);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .notif-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .notif-text strong {
+    font-size: 13px;
+  }
+
+  .notif-text span {
+    color: var(--text-secondary);
+  }
+
+  .ledger-card {
+    width: 100%;
+    max-width: 340px;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lift);
+    padding: var(--space-lg);
+  }
+
+  .ledger-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: var(--space-xs);
+  }
+
+  .ledger-total {
+    font-family: var(--font-display);
+    font-size: 34px;
+    font-weight: 600;
+    margin-bottom: var(--space-lg);
+  }
+
+  .ledger-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-xs);
+    border-radius: var(--radius-sm);
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  .ledger-row-text {
+    flex: 1;
+    color: var(--text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ledger-row-amount {
+    font-weight: 700;
+    color: var(--income);
+  }
+
+  .ledger-row-amount.expense {
+    color: var(--expense);
+  }
+
+  .ledger-row-new {
+    animation: row-cycle 7s var(--ease) infinite;
+  }
+
+  @keyframes notif-cycle {
+    0% {
+      opacity: 0;
+      transform: translateY(-16px);
+    }
+    8% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    34% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    42% {
+      opacity: 0;
+      transform: translateY(-16px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-16px);
+    }
+  }
+
+  @keyframes row-cycle {
+    0% {
+      opacity: 0;
+      background: transparent;
+    }
+    38% {
+      opacity: 0;
+      background: transparent;
+    }
+    46% {
+      opacity: 1;
+      background: var(--primary-light);
+    }
+    70% {
+      opacity: 1;
+      background: transparent;
+    }
+    94% {
+      opacity: 1;
+      background: transparent;
+    }
+    100% {
+      opacity: 0;
+      background: transparent;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .notif-banner {
+      animation: none;
+      opacity: 1;
+    }
+    .ledger-row-new {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .hero-subtitle {
+      margin-inline: auto;
+    }
+
+    .hero-actions {
+      justify-content: center;
+    }
+
+    .hero-demo {
+      margin-top: var(--space-xl);
+    }
+  }
+</style>

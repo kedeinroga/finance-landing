@@ -1,0 +1,139 @@
+---
+const profiles = [
+  {
+    tag: 'Individuo',
+    title: 'Visibilidad de tu gasto',
+    description:
+      'Ves en qué se va tu plata cada semana, por categoría, con un presupuesto mensual que te avisa antes de que te pases.',
+    bars: [
+      { label: 'Comida', percent: 72, color: 'var(--warning)' },
+      { label: 'Transporte', percent: 45, color: 'var(--plin)' },
+      { label: 'Servicios', percent: 30, color: 'var(--primary)' },
+    ],
+  },
+  {
+    tag: 'Emprendedor',
+    title: 'La caja del día, clara',
+    description:
+      'Ves cuánto cobraste hoy por Yape, Plin y efectivo, separado de tus gastos personales, y cierras caja por lotes sin hacer cuentas a mano.',
+    bars: [
+      { label: 'Yape', percent: 58, color: 'var(--yape)' },
+      { label: 'Plin', percent: 31, color: 'var(--plin)' },
+      { label: 'Efectivo', percent: 11, color: 'var(--income)' },
+    ],
+  },
+];
+---
+
+<section class="split" id="para-quien">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <p class="eyebrow" style="color:var(--primary-deep)">Un dashboard para cada quien</p>
+      <h2 class="section-title">Chapa se adapta a cómo manejas tu plata</h2>
+      <p class="section-subtitle">
+        El mismo registro automático de Yape y Plin, leído distinto según si vives de un sueldo o
+        de tu propio negocio.
+      </p>
+    </div>
+
+    <div class="split-grid">
+      {
+        profiles.map((profile, i) => (
+          <article class="profile-card" data-reveal style={`transition-delay:${i * 0.1}s`}>
+            <span class="profile-tag">{profile.tag}</span>
+            <h3>{profile.title}</h3>
+            <p>{profile.description}</p>
+
+            <div class="profile-bars">
+              {profile.bars.map((bar) => (
+                <div class="bar-row">
+                  <span class="bar-label">{bar.label}</span>
+                  <div class="bar-track">
+                    <div class="bar-fill" style={`width:${bar.percent}%;background:${bar.color}`} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .split {
+    padding-block: var(--space-xxxl);
+    background: var(--surface);
+  }
+
+  .split-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .profile-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+  }
+
+  .profile-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--primary-deep);
+    background: var(--primary-light);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-md);
+  }
+
+  .profile-card h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+  }
+
+  .profile-card > p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+  }
+
+  .profile-bars {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .bar-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .bar-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .bar-track {
+    height: 8px;
+    background: var(--border);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: var(--radius-full);
+  }
+</style>

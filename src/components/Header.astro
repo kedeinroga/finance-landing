@@ -1,0 +1,104 @@
+---
+const LOGIN_URL = 'https://app.chapa.money/login';
+const REGISTER_URL = 'https://app.chapa.money/register';
+---
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="/#top" class="brand">
+      <img src="/logo.png" alt="Chapa" width="30" height="30" />
+      <span>Chapa</span>
+    </a>
+
+    <nav class="header-nav">
+      <a href="/#captura">Cómo captura</a>
+      <a href="/#para-quien">Para quién</a>
+      <a href="/#planes">Planes</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href={LOGIN_URL} class="header-login">Iniciar sesión</a>
+      <a href={REGISTER_URL} class="btn btn-primary header-cta">Crear cuenta</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    gap: var(--space-lg);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    flex-shrink: 0;
+  }
+
+  .brand img {
+    border-radius: var(--radius-sm);
+  }
+
+  .header-nav {
+    display: flex;
+    gap: var(--space-xl);
+    margin-inline: auto;
+  }
+
+  .header-nav a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .header-nav a:hover {
+    color: var(--ink);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    flex-shrink: 0;
+  }
+
+  .header-login {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .header-cta {
+    height: 40px;
+    padding-inline: var(--space-md);
+    font-size: 13px;
+  }
+
+  @media (max-width: 760px) {
+    .header-nav {
+      display: none;
+    }
+  }
+</style>

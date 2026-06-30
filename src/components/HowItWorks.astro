@@ -1,0 +1,82 @@
+---
+const steps = [
+  {
+    number: '01',
+    title: 'Crea tu cuenta',
+    description: 'Regístrate con tu correo y dinos si eres independiente o tienes un negocio.',
+  },
+  {
+    number: '02',
+    title: 'Activa la captura',
+    description: 'Da permiso a Chapa para leer las notificaciones de Yape y Plin en tu Android.',
+  },
+  {
+    number: '03',
+    title: 'Mira tu dashboard',
+    description: 'Cada pago entra solo. Tú solo revisas el resumen y categorizas si quieres.',
+  },
+];
+---
+
+<section class="how" id="como-funciona">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <p class="eyebrow" style="color:var(--primary-deep)">Tres pasos</p>
+      <h2 class="section-title">De instalar a tener todo registrado</h2>
+    </div>
+
+    <div class="steps">
+      {
+        steps.map((step, i) => (
+          <div class="step" data-reveal style={`transition-delay:${i * 0.1}s`}>
+            <span class="step-number">{step.number}</span>
+            <h3>{step.title}</h3>
+            <p>{step.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .how {
+    padding-block: var(--space-xxxl);
+    background: var(--surface);
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-xxl);
+    position: relative;
+  }
+
+  .step {
+    position: relative;
+    padding-top: var(--space-md);
+    border-top: 2px solid var(--ink);
+  }
+
+  .step-number {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 40px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .step h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+  }
+
+  .step p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 32ch;
+  }
+</style>

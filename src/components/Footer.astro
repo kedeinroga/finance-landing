@@ -1,0 +1,62 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="brand">
+      <img src="/logo.png" alt="Chapa" width="20" height="20" />
+      <span>Chapa</span>
+    </div>
+    <nav class="footer-links">
+      <a href="/terms">Términos</a>
+      <a href="/privacy">Privacidad</a>
+    </nav>
+    <p>© {year} Chapa · chapa.money</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-block: var(--space-lg);
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .brand img {
+    border-radius: var(--radius-sm);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .footer-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: color 0.15s;
+  }
+
+  .footer-links a:hover {
+    color: var(--ink);
+  }
+</style>

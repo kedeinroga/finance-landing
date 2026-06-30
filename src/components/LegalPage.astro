@@ -1,0 +1,107 @@
+---
+interface Section {
+  title: string;
+  body: string;
+}
+
+interface Props {
+  title: string;
+  lastUpdated: string;
+  sections: Section[];
+}
+
+const { title, lastUpdated, sections } = Astro.props;
+---
+
+<article class="legal">
+  <div class="container legal-inner">
+    <header class="legal-head">
+      <h1>{title}</h1>
+      <p class="legal-meta">Última actualización: {lastUpdated}</p>
+    </header>
+
+    <div class="legal-notice">
+      <p>
+        <strong>Documento informativo, pendiente de revisión legal.</strong> Describe con la mayor
+        fidelidad posible lo que Chapa hace hoy con tus datos, pero todavía no ha sido revisado por
+        asesoría legal peruana ni incluye los datos de identificación de la empresa (razón social,
+        RUC, domicilio legal, registro ante la ANPD). No la trates como un documento definitivo.
+      </p>
+    </div>
+
+    <div class="legal-sections">
+      {
+        sections.map((section) => (
+          <section class="legal-section">
+            <h2>{section.title}</h2>
+            <p>{section.body}</p>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</article>
+
+<style>
+  .legal {
+    padding-block: var(--space-xxl) var(--space-xxxl);
+  }
+
+  .legal-inner {
+    max-width: 720px;
+  }
+
+  .legal-head {
+    margin-bottom: var(--space-lg);
+  }
+
+  h1 {
+    font-size: clamp(32px, 4vw, 44px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-sm);
+  }
+
+  .legal-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .legal-notice {
+    background: var(--warning-light);
+    border: 1px solid color-mix(in srgb, var(--warning) 35%, transparent);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-xxl);
+  }
+
+  .legal-notice p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .legal-notice strong {
+    color: var(--ink);
+  }
+
+  .legal-sections {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .legal-section h2 {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary-deep);
+    margin-bottom: var(--space-sm);
+  }
+
+  .legal-section p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+</style>

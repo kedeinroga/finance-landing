@@ -1,0 +1,46 @@
+---
+const REGISTER_URL = 'https://app.chapa.money/register';
+---
+
+<section class="cta">
+  <div class="container cta-inner" data-reveal>
+    <h2>Empieza a ver tu plata clara hoy</h2>
+    <p>Crear tu cuenta toma menos de un minuto.</p>
+    <a href={REGISTER_URL} class="btn btn-on-dark">Crear cuenta gratis</a>
+  </div>
+</section>
+
+<style>
+  .cta {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary) 100%);
+    padding-block: var(--space-xxxl);
+  }
+
+  .cta::before {
+    content: '';
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12) 0%, transparent 50%);
+  }
+
+  .cta-inner {
+    position: relative;
+    text-align: center;
+    color: #fff;
+  }
+
+  h2 {
+    font-size: clamp(28px, 3.6vw, 40px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-sm);
+  }
+
+  p {
+    font-size: 16px;
+    color: #dbe9fb;
+    margin-bottom: var(--space-xl);
+  }
+</style>

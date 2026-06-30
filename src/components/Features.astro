@@ -1,0 +1,106 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const features = [
+  {
+    icon: 'lucide:zap',
+    title: 'Captura automática',
+    description:
+      'Cada Yape o Plin que te llega se registra solo, apenas suena la notificación. Cero anotaciones manuales.',
+  },
+  {
+    icon: 'lucide:bar-chart-3',
+    title: 'Dashboard a tu medida',
+    description:
+      'Visibilidad de gasto por categoría si eres independiente, o caja del día por fuente si tienes un negocio.',
+  },
+  {
+    icon: 'lucide:receipt',
+    title: 'Cierre de caja',
+    description:
+      'Emprendedores: cierra tu caja al final del día y arranca el siguiente lote con un total claro de ingresos, gastos y neto.',
+  },
+  {
+    icon: 'lucide:globe',
+    title: 'Multi-moneda',
+    description:
+      'Soles y dólares se llevan por separado, sin mezclarse en un solo total. Cada moneda con su propio resumen.',
+  },
+];
+---
+
+<section class="features" id="captura">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <p class="eyebrow" style="color:var(--primary-deep)">Cómo captura</p>
+      <h2 class="section-title">Lo que pasa apenas suena la notificación</h2>
+      <p class="section-subtitle">
+        Chapa lee la notificación de Yape o Plin en tu Android, extrae el monto y la persona, y lo
+        suma a tu registro sin que toques nada.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      {
+        features.map((feature, i) => (
+          <div class="feature-card" data-reveal style={`transition-delay:${i * 0.08}s`}>
+            <div class="feature-badge">
+              <Icon name={feature.icon} />
+            </div>
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .features {
+    padding-block: var(--space-xxxl);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .feature-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: var(--space-xl) var(--space-lg);
+  }
+
+  .feature-badge {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-light);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-lg);
+    color: var(--primary-deep);
+  }
+
+  .feature-badge :global(svg) {
+    width: 22px;
+    height: 22px;
+    stroke-width: 1.75;
+  }
+
+  .feature-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+  }
+
+  .feature-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+</style>

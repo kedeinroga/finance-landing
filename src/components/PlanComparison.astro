@@ -1,0 +1,150 @@
+---
+const REGISTER_URL = 'https://app.chapa.money/register';
+
+const plans = [
+  {
+    name: 'Free',
+    tagline: 'Para empezar a ver tu plata clara',
+    cta: { label: 'Crear cuenta gratis', href: REGISTER_URL },
+    features: [
+      'Hasta 10 transacciones registradas al mes',
+      'Historial de los últimos 30 días',
+      'Sincronización 1 vez al día',
+      'Dashboard de gasto o caja del día',
+      'Categorías y presupuesto mensual',
+    ],
+  },
+  {
+    name: 'Pro',
+    tagline: 'Para cuando necesitas todo en tiempo real',
+    badge: 'Próximamente',
+    features: [
+      'Transacciones ilimitadas',
+      'Captura en tiempo real, sin esperar el sync diario',
+      'Historial completo, sin límite de 30 días',
+      'Todo lo del plan Free',
+    ],
+  },
+];
+---
+
+<section class="plans" id="planes">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <p class="eyebrow" style="color:var(--primary-deep)">Planes</p>
+      <h2 class="section-title">Empieza gratis, sin tarjeta</h2>
+      <p class="section-subtitle">Free ya está disponible. Pro suma capacidad para cuando tu negocio crece.</p>
+    </div>
+
+    <div class="plans-grid">
+      {
+        plans.map((plan, i) => (
+          <article class={`plan-card ${plan.name === 'Free' ? 'plan-card-highlight' : ''}`} data-reveal style={`transition-delay:${i * 0.1}s`}>
+            <div class="plan-head">
+              <h3>{plan.name}</h3>
+              {plan.badge && <span class="plan-badge">{plan.badge}</span>}
+            </div>
+            <p class="plan-tagline">{plan.tagline}</p>
+            <ul class="plan-features">
+              {plan.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            {plan.cta && (
+              <a href={plan.cta.href} class="btn btn-primary plan-cta">
+                {plan.cta.label}
+              </a>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .plans {
+    padding-block: var(--space-xxxl);
+    background: var(--surface);
+  }
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-xl);
+    max-width: 760px;
+    margin-inline: auto;
+  }
+
+  .plan-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .plan-card-highlight {
+    border-color: var(--ink);
+    box-shadow: var(--shadow-card);
+  }
+
+  .plan-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xs);
+  }
+
+  .plan-card h3 {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .plan-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+  }
+
+  .plan-tagline {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-lg);
+  }
+
+  .plan-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+    flex: 1;
+  }
+
+  .plan-features li {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    padding-left: var(--space-lg);
+    position: relative;
+  }
+
+  .plan-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--income);
+    font-weight: 700;
+  }
+
+  .plan-cta {
+    width: 100%;
+  }
+</style>
