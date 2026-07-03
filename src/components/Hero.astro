@@ -1,6 +1,7 @@
 ---
 const REGISTER_URL = 'https://app.chapa.money/welcome';
 const LOGIN_URL = 'https://app.chapa.money/login';
+const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(new Date());
 ---
 
 <section class="hero" id="top">
@@ -32,30 +33,50 @@ const LOGIN_URL = 'https://app.chapa.money/login';
         </div>
       </div>
 
-      <div class="ledger-card">
-        <p class="ledger-label">Hoy</p>
-        <p class="ledger-total">S/ 248.50</p>
+      <div class="app-card">
+        <div class="app-card-top">
+          <p class="app-card-kicker">Gasto de hoy</p>
+          <p class="app-card-amount">S/ 42.30</p>
+        </div>
+        <div class="app-card-bottom">
+          <p class="app-card-label">Balance de {monthLabel}</p>
+          <div class="balance-cols">
+            <div class="balance-col">
+              <span>Ingresos</span>
+              <strong class="income">S/ 1,240.00</strong>
+            </div>
+            <div class="balance-col">
+              <span>Egresos</span>
+              <strong class="expense">S/ 486.30</strong>
+            </div>
+            <div class="balance-col">
+              <span>Neto</span>
+              <strong class="income">S/ 753.70</strong>
+            </div>
+          </div>
 
-        <div class="ledger-row ledger-row-new">
-          <span class="pill" style="background:var(--yape-light);color:var(--yape)">
-            <span class="pill-dot"></span>Yape
-          </span>
-          <span class="ledger-row-text">Juan Pérez</span>
-          <span class="ledger-row-amount">+S/ 35.00</span>
-        </div>
-        <div class="ledger-row">
-          <span class="pill" style="background:var(--plin-light);color:#0277bd">
-            <span class="pill-dot"></span>Plin
-          </span>
-          <span class="ledger-row-text">María Flores</span>
-          <span class="ledger-row-amount">+S/ 60.00</span>
-        </div>
-        <div class="ledger-row">
-          <span class="pill" style="background:var(--warning-light);color:var(--warning)">
-            <span class="pill-dot"></span>Mercado
-          </span>
-          <span class="ledger-row-text">Tottus</span>
-          <span class="ledger-row-amount expense">-S/ 42.30</span>
+          <p class="app-card-label movements-label">Últimos movimientos</p>
+          <div class="ledger-row ledger-row-new">
+            <span class="pill" style="background:var(--yape-light);color:var(--yape)">
+              <span class="pill-dot"></span>Yape
+            </span>
+            <span class="ledger-row-text">Juan Pérez</span>
+            <span class="ledger-row-amount">+S/ 35.00</span>
+          </div>
+          <div class="ledger-row">
+            <span class="pill" style="background:var(--plin-light);color:var(--plin-dark)">
+              <span class="pill-dot"></span>Plin
+            </span>
+            <span class="ledger-row-text">María Flores</span>
+            <span class="ledger-row-amount">+S/ 60.00</span>
+          </div>
+          <div class="ledger-row">
+            <span class="pill" style="background:var(--warning-light);color:var(--warning)">
+              <span class="pill-dot"></span>Mercado
+            </span>
+            <span class="ledger-row-text">Tottus</span>
+            <span class="ledger-row-amount expense">-S/ 42.30</span>
+          </div>
         </div>
       </div>
     </div>
@@ -137,7 +158,7 @@ const LOGIN_URL = 'https://app.chapa.money/login';
     top: 0;
     width: calc(100% - 24px);
     max-width: 320px;
-    background: #fff;
+    background: var(--white);
     border-radius: var(--radius-md);
     box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
     padding: var(--space-sm) var(--space-md);
@@ -153,7 +174,7 @@ const LOGIN_URL = 'https://app.chapa.money/login';
     flex-shrink: 0;
     border-radius: var(--radius-sm);
     background: var(--yape);
-    color: #fff;
+    color: var(--white);
     font-family: var(--font-display);
     font-weight: 700;
     display: flex;
@@ -176,27 +197,87 @@ const LOGIN_URL = 'https://app.chapa.money/login';
     color: var(--text-secondary);
   }
 
-  .ledger-card {
+  /* Espejo del hero card del dashboard: dos zonas, único elemento elevado del demo */
+  .app-card {
     width: 100%;
     max-width: 340px;
-    background: var(--surface);
+    background: var(--white);
     border-radius: var(--radius-lg);
+    overflow: hidden;
     box-shadow: var(--shadow-lift);
-    padding: var(--space-lg);
   }
 
-  .ledger-label {
-    font-size: 13px;
+  .app-card-top {
+    background: var(--primary);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .app-card-kicker {
+    font-family: var(--font-sans);
+    font-size: 11px;
     font-weight: 600;
-    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.65);
     margin-bottom: var(--space-xs);
   }
 
-  .ledger-total {
-    font-family: var(--font-display);
+  .app-card-amount {
+    font-family: var(--font-sans);
     font-size: 34px;
+    font-weight: 700;
+    color: var(--white);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .app-card-bottom {
+    background: var(--surface-tint);
+    padding: var(--space-lg);
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .app-card-label {
+    font-size: 13px;
     font-weight: 600;
-    margin-bottom: var(--space-lg);
+    color: var(--text-muted);
+  }
+
+  .movements-label {
+    margin-top: var(--space-sm);
+  }
+
+  .balance-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-sm);
+    text-align: center;
+  }
+
+  .balance-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .balance-col span {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .balance-col strong {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .balance-col .income {
+    color: var(--income);
+  }
+
+  .balance-col .expense {
+    color: var(--expense);
   }
 
   .ledger-row {
@@ -264,7 +345,7 @@ const LOGIN_URL = 'https://app.chapa.money/login';
     }
     46% {
       opacity: 1;
-      background: var(--primary-light);
+      background: var(--money-light);
     }
     70% {
       opacity: 1;

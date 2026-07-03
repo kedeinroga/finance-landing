@@ -1,7 +1,6 @@
 :root {
   /* Marca Chapa — portado de chapa-app/src/presentation/constants/theme.ts, NO se reinventa */
   --primary: #1565c0;
-  --primary-dark: #1976d2;
   --primary-deep: #0d3d73;
   --primary-light: #e8f1fb;
   --income: #0d7c4e;
@@ -12,14 +11,22 @@
   --yape-light: #f3e8ff;
   --plin: #00b0ff;
   --plin-light: #e0f4ff;
-  --text: #111111;
-  --text-secondary: #475569;
-  --text-muted: #94a3b8;
+  --plin-dark: #0277bd;
+  --white: #ffffff;
+  /* Verde de dinero/emprendedor — portado de primaryDark/primaryLight de theme.ts;
+     nombre semántico para no chocar con --primary-light (tinte azul) de esta landing */
+  --money: #065a38;
+  --money-light: #e8f5ee;
+  /* Grises alineados a la app; --text-muted queda más oscuro que el 8A8A8A de la app
+     porque aquí el muted son textos de 11-13px sobre papel (8A8A8A da ~3.2:1, falla AA) */
+  --text-secondary: #555555;
+  --text-muted: #6e6e6e;
   --border: #e0e0e0;
 
   /* Capa editorial — calidez de papel en vez de blanco clínico, propia de esta landing */
   --paper: #faf7f1;
   --surface: #ffffff;
+  --surface-tint: #f7f9f8; /* surface de la app — solo para demos de producto fieles al dashboard */
   --ink: #16181d;
 
   --space-xs: 4px;
