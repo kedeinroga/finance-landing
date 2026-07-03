@@ -80,10 +80,24 @@ deba revelarse al hacer scroll, ponle el atributo `data-reveal` (opcional `style
 El diseño **se copia** desde `chapa-app`, no se comparte código (son stacks distintos: Astro vs.
 Expo/RN). Si la marca cambia ahí, hay que portar el cambio a mano:
 
+- **Azul `#1565C0` es LA marca**: botones (`.btn-primary`), hero del demo, gradiente de CTA y
+  `theme-color`. Consistente con correos y dashboard/auth pages de la app. `--primary-deep
+  #0D3D73` es el único azul oscuro (`--primary-dark #1976D2` era drift sin uso real, eliminado).
+- **Verde `--money #065A38` / `--money-light #E8F5EE`** es el acento semántico de dinero y del
+  perfil emprendedor — portado de `primaryDark`/`primaryLight` de `theme.ts`. El nombre es
+  intencionalmente distinto de `--primary-light` (que en esta landing es un tinte azul, no verde):
+  divergencia de nombre documentada, no un error.
+- **Grises alineados a la app**: `--text-secondary #555555` (paridad con la app). `--text-muted
+  #6E6E6E` es más oscuro que el `#8A8A8A` de la app a propósito: aquí el muted se usa en texto de
+  11–13px sobre el fondo papel, y `#8A8A8A` da ~3.2:1 (falla AA); `#6E6E6E` da ~4.7:1 (pasa).
 - **Tokens de color/spacing/radius**: `chapa-app/src/presentation/constants/theme.ts` → portados a
-  `src/styles/tokens.css`. Primario `#1565C0` (azul, consistente con correos y dashboard — no el
-  verde `primaryDark` de la app, que es inconsistencia conocida). Colores de Yape/Plin también
-  vienen de ahí (`--yape #742F86`, `--plin #00B0FF`) y se usan en los demos de la landing.
+  `src/styles/tokens.css`. Colores de Yape/Plin también vienen de ahí (`--yape #742F86`, `--plin
+  #00B0FF`) y se usan en los demos de la landing.
+- **Los demos CSS deben espejar la UI shippeada**: el demo del hero (`.app-card` en `Hero.astro`)
+  replica el hero card de dos zonas del dashboard rediseñado de la app — dentro del demo se usa
+  `--font-sans` y `--surface-tint` (el `--surface` de la app), no la capa editorial. Referencia
+  cruzada al lenguaje de diseño de la app y al rediseño del dashboard (documentos del workspace
+  privado del mantenedor).
 - **Patrones visuales heredados** (gradiente, card, botones de `app.chapa.money`): tomados de las
   páginas HTML de verify-email/reset-password en `chapa-api/Caddyfile`.
 - **Tagline oficial**: "Tu dinero, todo en un lugar".
@@ -100,8 +114,10 @@ landing/app en el futuro, es una decisión de marca a tomar explícitamente, no 
 **Contenido que NO se inventa:** no hay testimonios (Chapa no tiene usuarios públicos todavía — la
 sección de Clever que los usa como inspiración se mapeó a un diferenciador real, "Para quién", en
 vez de fabricar nombres/citas) ni precio público de Pro (activación es manual hoy, sin pasarela de
-pago — `PlanComparison.astro` compara features Free/Pro sin número de S/, Pro queda "Próximamente").
-Si esto cambia, actualizar ahí con datos reales, no con placeholders.
+pago — `PlanComparison.astro` tiene un slot de precio por plan: Free muestra "Gratis", Pro muestra
+"Próximamente" en ese mismo slot mientras no haya precio publicado). Activar el precio de Pro es
+solo llenar `price: { amount, period }` en el objeto del plan — sin tocar markup. Si esto cambia,
+actualizar ahí con datos reales, no con placeholders.
 
 ## Contenido legal (`/terms`, `/privacy`)
 

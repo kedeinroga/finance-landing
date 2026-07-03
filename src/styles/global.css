@@ -105,8 +105,8 @@ h3 {
 }
 
 .btn-primary {
-  background: var(--ink);
-  color: #fff;
+  background: var(--primary);
+  color: var(--white);
 }
 
 .btn-primary:hover {
@@ -114,12 +114,12 @@ h3 {
 }
 
 .btn-on-dark {
-  background: #fff;
+  background: var(--white);
   color: var(--primary-deep);
 }
 
 .btn-on-dark:hover {
-  background: #fff;
+  background: var(--white);
   color: var(--ink);
 }
 
@@ -131,17 +131,17 @@ h3 {
 
 .btn-outline:hover {
   background: var(--ink);
-  color: #fff;
+  color: var(--white);
 }
 
 .btn-outline-on-dark {
   background: transparent;
   border-color: rgba(255, 255, 255, 0.45);
-  color: #fff;
+  color: var(--white);
 }
 
 .btn-outline-on-dark:hover {
-  border-color: #fff;
+  border-color: var(--white);
   background: rgba(255, 255, 255, 0.12);
 }
 

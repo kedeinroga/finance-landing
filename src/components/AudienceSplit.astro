@@ -2,6 +2,7 @@
 const profiles = [
   {
     tag: 'Individuo',
+    accent: 'individual' as const,
     title: 'Visibilidad de tu gasto',
     description:
       'Ves en qué se va tu plata cada semana, por categoría, con un presupuesto mensual que te avisa antes de que te pases.',
@@ -13,6 +14,7 @@ const profiles = [
   },
   {
     tag: 'Emprendedor',
+    accent: 'entrepreneur' as const,
     title: 'La caja del día, clara',
     description:
       'Ves cuánto cobraste hoy por Yape, Plin y efectivo, separado de tus gastos personales, y cierras caja por lotes sin hacer cuentas a mano.',
@@ -39,7 +41,7 @@ const profiles = [
     <div class="split-grid">
       {
         profiles.map((profile, i) => (
-          <article class="profile-card" data-reveal style={`transition-delay:${i * 0.1}s`}>
+          <article class={`profile-card profile-${profile.accent}`} data-reveal style={`transition-delay:${i * 0.1}s`}>
             <span class="profile-tag">{profile.tag}</span>
             <h3>{profile.title}</h3>
             <p>{profile.description}</p>
@@ -86,11 +88,19 @@ const profiles = [
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--primary-deep);
-    background: var(--primary-light);
     padding: 4px 12px;
     border-radius: var(--radius-full);
     margin-bottom: var(--space-md);
+  }
+
+  .profile-individual .profile-tag {
+    color: var(--primary-deep);
+    background: var(--primary-light);
+  }
+
+  .profile-entrepreneur .profile-tag {
+    color: var(--money);
+    background: var(--money-light);
   }
 
   .profile-card h3 {
