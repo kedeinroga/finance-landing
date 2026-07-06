@@ -1,4 +1,6 @@
 ---
+import { Icon } from 'astro-icon/components';
+
 const REGISTER_URL = 'https://app.chapa.money/welcome';
 const LOGIN_URL = 'https://app.chapa.money/login';
 const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(new Date());
@@ -8,28 +10,28 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
   <div class="hero-bg" aria-hidden="true"></div>
   <div class="container hero-inner">
     <div class="hero-copy">
-      <p class="eyebrow">Captura automática · Yape &amp; Plin</p>
+      <p class="eyebrow">Captura por correo · Yape &amp; Plin</p>
       <h1>
         Tu dinero,<br />
         todo en <em>un lugar</em>.
       </h1>
       <p class="hero-subtitle">
-        Cada Yape o Plin que te llega se registra solo, apenas suena la notificación en tu
-        teléfono. Nada que anotar, nada que recordar.
+        Reenvía a Chapa el correo de alerta de Yape, Plin o tu banco y el movimiento se registra
+        solo. Nada que anotar, nada que recordar.
       </p>
       <div class="hero-actions">
         <a href={REGISTER_URL} class="btn btn-primary">Crear cuenta gratis</a>
         <a href={LOGIN_URL} class="btn btn-outline">Iniciar sesión</a>
       </div>
-      <p class="hero-note">Gratis para empezar · Android (iOS por compilación directa)</p>
+      <p class="hero-note">Gratis para empezar</p>
     </div>
 
     <div class="hero-demo" aria-hidden="true">
-      <div class="notif-banner">
-        <span class="notif-icon">Y</span>
-        <div class="notif-text">
-          <strong>Yape</strong>
-          <span>Has recibido un pago · +S/ 35.00</span>
+      <div class="email-banner">
+        <span class="email-icon"><Icon name="lucide:mail" /></span>
+        <div class="email-text">
+          <strong>Alerta bancaria detectada</strong>
+          <span>Yape · Pago recibido +S/ 35.00</span>
         </div>
       </div>
 
@@ -144,7 +146,7 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
     color: var(--text-muted);
   }
 
-  /* Demo: notificación que "cae" dentro del registro */
+  /* Demo: correo bancario detectado que cae dentro del registro */
   .hero-demo {
     position: relative;
     display: flex;
@@ -153,7 +155,7 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
     padding-top: 56px;
   }
 
-  .notif-banner {
+  .email-banner {
     position: absolute;
     top: 0;
     width: calc(100% - 24px);
@@ -165,15 +167,15 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
     display: flex;
     align-items: center;
     gap: var(--space-sm);
-    animation: notif-cycle 7s var(--ease) infinite;
+    animation: email-cycle 7s var(--ease) infinite;
   }
 
-  .notif-icon {
+  .email-icon {
     width: 32px;
     height: 32px;
     flex-shrink: 0;
     border-radius: var(--radius-sm);
-    background: var(--yape);
+    background: var(--primary);
     color: var(--white);
     font-family: var(--font-display);
     font-weight: 700;
@@ -182,18 +184,25 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
     justify-content: center;
   }
 
-  .notif-text {
+  .email-icon :global(svg) {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+    color: var(--white);
+  }
+
+  .email-text {
     display: flex;
     flex-direction: column;
     font-size: 13px;
     line-height: 1.4;
   }
 
-  .notif-text strong {
+  .email-text strong {
     font-size: 13px;
   }
 
-  .notif-text span {
+  .email-text span {
     color: var(--text-secondary);
   }
 
@@ -311,7 +320,7 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
     animation: row-cycle 7s var(--ease) infinite;
   }
 
-  @keyframes notif-cycle {
+  @keyframes email-cycle {
     0% {
       opacity: 0;
       transform: translateY(-16px);
@@ -362,7 +371,7 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .notif-banner {
+    .email-banner {
       animation: none;
       opacity: 1;
     }
