@@ -2,6 +2,7 @@
 interface Section {
   title: string;
   body: string;
+  items?: string[];
 }
 
 interface Props {
@@ -35,6 +36,11 @@ const { title, lastUpdated, sections } = Astro.props;
           <section class="legal-section">
             <h2>{section.title}</h2>
             <p>{section.body}</p>
+            {section.items && (
+              <ul class="legal-list">
+                {section.items.map((item) => <li>{item}</li>)}
+              </ul>
+            )}
           </section>
         ))
       }
@@ -103,5 +109,20 @@ const { title, lastUpdated, sections } = Astro.props;
     font-size: 15px;
     line-height: 1.7;
     color: var(--text-secondary);
+  }
+
+  .legal-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+    padding-left: var(--space-lg);
+  }
+
+  .legal-list li {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    list-style: disc;
   }
 </style>

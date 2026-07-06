@@ -3,10 +3,10 @@ import { Icon } from 'astro-icon/components';
 
 const features = [
   {
-    icon: 'lucide:zap',
+    icon: 'lucide:mail-check',
     title: 'Captura automática',
     description:
-      'Cada Yape o Plin que te llega se registra solo, apenas suena la notificación. Cero anotaciones manuales.',
+      'Reenvía el correo de Yape, Plin o tu banco y el pago se registra solo. Cero anotaciones manuales.',
   },
   {
     icon: 'lucide:bar-chart-3',
@@ -26,6 +26,13 @@ const features = [
     description:
       'Soles y dólares se llevan por separado, sin mezclarse en un solo total. Cada moneda con su propio resumen.',
   },
+  {
+    icon: 'lucide:zap',
+    title: 'Conexión Gmail',
+    soon: true,
+    description:
+      'Autoriza tu Gmail y las alertas de tu banco se detectan en tiempo real, sin reenviar nada. Disponible en beta cerrada mientras completamos la verificación de Google.',
+  },
 ];
 ---
 
@@ -33,10 +40,10 @@ const features = [
   <div class="container">
     <div class="section-head center" data-reveal>
       <p class="eyebrow" style="color:var(--primary-deep)">Cómo captura</p>
-      <h2 class="section-title">Lo que pasa apenas suena la notificación</h2>
+      <h2 class="section-title">Lo que pasa apenas reenvías el correo</h2>
       <p class="section-subtitle">
-        Chapa lee la notificación de Yape o Plin en tu Android, extrae el monto y la persona, y lo
-        suma a tu registro sin que toques nada.
+        Reenvía el correo de alerta de Yape, Plin o tu banco a tu dirección de Chapa; extraemos el
+        monto y la persona, y lo sumamos a tu registro sin que toques nada.
       </p>
     </div>
 
@@ -48,6 +55,7 @@ const features = [
               <Icon name={feature.icon} />
             </div>
             <h3>{feature.title}</h3>
+            {feature.soon && <span class="feature-badge-soon">Próximamente</span>}
             <p>{feature.description}</p>
           </div>
         ))
@@ -90,6 +98,16 @@ const features = [
     width: 22px;
     height: 22px;
     stroke-width: 1.75;
+  }
+
+  .feature-badge-soon {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
   }
 
   .feature-card h3 {

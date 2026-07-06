@@ -7,15 +7,36 @@ import Footer from '../components/Footer.astro';
 const sections = [
   {
     title: 'Qué datos tratamos',
-    body: 'Tu correo (guardado cifrado y como hash, separado de tu perfil), tus transacciones (de Yape/Plin y, si lo activas, de las alertas de tu banco) y datos técnicos mínimos de seguridad.',
+    body: 'Recopilamos solo lo necesario para que Chapa funcione. No te pedimos tu nombre ni tu fecha de nacimiento para registrarte.',
+    items: [
+      'Tu correo electrónico, guardado cifrado y como hash, separado de tu perfil.',
+      'Tus transacciones de Yape y Plin, y las alertas de tu banco si activas el reenvío o la conexión con Gmail.',
+      'Datos técnicos mínimos de seguridad (por ejemplo, para detectar accesos indebidos a tu cuenta).',
+    ],
   },
   {
     title: 'Registro por correo del banco',
-    body: 'Solo recibimos los correos que tú reenvías a tu dirección de Chapa. Verificamos que sean de tu banco; si no, los descartamos. Extraemos la transacción y descartamos el contenido del correo: nunca lo guardamos.',
+    body: 'Solo recibimos los correos que tú reenvías a tu dirección de Chapa.',
+    items: [
+      'Verificamos que el remitente sea tu banco; si no, lo descartamos.',
+      'Extraemos la transacción (monto, comercio, fecha) del contenido del correo.',
+      'Descartamos el contenido del correo: nunca lo guardamos.',
+    ],
+  },
+  {
+    title: 'Conexión directa con Gmail (beta)',
+    body: 'Si activas la conexión directa con Gmail — función en beta cerrada, limitada a un grupo reducido de usuarios — autorizas a Chapa a acceder a tu bandeja mediante OAuth para detectar automáticamente los correos de tu banco, sin que tengas que reenviarlos. Solo leemos los correos que identificamos como alertas bancarias: no accedemos, leemos ni guardamos correos personales ni de otro tipo. Puedes desconectar el acceso cuando quieras desde Ajustes.',
   },
   {
     title: 'Qué NO hacemos',
-    body: 'No accedemos a tu bandeja de entrada, no leemos correos personales, no procesamos imágenes ni adjuntos, y no entramos a tu banca. No vendemos tu información.',
+    body: 'Estos son límites que no cruzamos:',
+    items: [
+      'No accedemos a tu bandeja de entrada por reenvío: solo recibimos lo que tú nos reenvías.',
+      'No leemos ni guardamos correos personales, ni procesamos imágenes o adjuntos.',
+      'No entramos a tu banca ni ejecutamos acciones en tu cuenta bancaria.',
+      'No vendemos tu información a nadie.',
+      'Si activas la conexión con Gmail (beta cerrada), sí accedemos a tu bandeja mediante autorización OAuth, únicamente para detectar alertas bancarias — puedes revocarla cuando quieras.',
+    ],
   },
   {
     title: 'Inteligencia artificial',
@@ -23,7 +44,13 @@ const sections = [
   },
   {
     title: 'Con quién compartimos',
-    body: 'Solo con proveedores que nos prestan el servicio (Google, Resend, Cloudflare y nuestro proveedor de servidor), como encargados de tratamiento y bajo acuerdos de confidencialidad.',
+    body: 'Solo con proveedores que nos ayudan a operar el servicio, como encargados de tratamiento y bajo acuerdos de confidencialidad:',
+    items: [
+      'Cloudflare: recibe el correo que reenvías y nos lo entrega de forma segura.',
+      'Google (Gemini): procesa el contenido del correo para extraer la transacción; si conectas Gmail, también gestiona la autorización OAuth.',
+      'Resend: envía los correos operativos de la plataforma.',
+      'Nuestro proveedor de servidor: aloja la aplicación y la base de datos.',
+    ],
   },
   {
     title: 'Datos fuera de Perú',
@@ -31,11 +58,26 @@ const sections = [
   },
   {
     title: 'Seguridad',
-    body: 'Ciframos en tránsito (TLS) y los datos sensibles a nivel de columna; tu dirección de reenvío se guarda hasheada. Validamos la firma y autenticidad (DKIM) de los correos antes de procesarlos.',
+    body: 'Protegemos tus datos con varias capas de seguridad:',
+    items: [
+      'Cifrado en tránsito (TLS) en todas las conexiones.',
+      'Cifrado a nivel de columna para los datos sensibles en la base de datos.',
+      'Tu dirección de reenvío se guarda hasheada, no en texto plano.',
+      'Validamos la firma y autenticidad (DKIM) de los correos antes de procesarlos.',
+    ],
+  },
+  {
+    title: 'Retención y eliminación de datos',
+    body: 'Conservamos tu información mientras tu cuenta esté activa. Puedes solicitar la eliminación de tu cuenta y de tus datos personales en cualquier momento desde la app o escribiéndonos; procesamos esa solicitud tan pronto como sea posible.',
   },
   {
     title: 'Tus derechos (ARCO)',
-    body: 'Puedes acceder, rectificar, eliminar tus datos y revocar tu consentimiento. Desde la app puedes desconectar el correo (borra tu dirección y la ingesta) y eliminar tu cuenta. También puedes reclamar ante la Autoridad Nacional de Protección de Datos Personales (ANPD) del MINJUS.',
+    body: 'Tienes derecho a acceder, rectificar, eliminar tus datos y revocar tu consentimiento en cualquier momento:',
+    items: [
+      'Desde la app puedes desconectar el correo o la conexión con Gmail (borra tu dirección/autorización y la ingesta).',
+      'Desde la app puedes eliminar tu cuenta por completo.',
+      'Puedes reclamar ante la Autoridad Nacional de Protección de Datos Personales (ANPD) del MINJUS.',
+    ],
   },
   {
     title: 'Contacto',
@@ -51,7 +93,7 @@ const sections = [
 >
   <Header />
   <main>
-    <LegalPage title="Privacidad y datos" lastUpdated="junio 2026" sections={sections} />
+    <LegalPage title="Privacidad y datos" lastUpdated="julio 2026" sections={sections} />
   </main>
   <Footer />
 </BaseLayout>
