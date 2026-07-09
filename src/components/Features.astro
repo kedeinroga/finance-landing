@@ -39,7 +39,6 @@ const features = [
 <section class="features" id="captura">
   <div class="container">
     <div class="section-head center" data-reveal>
-      <p class="eyebrow" style="color:var(--primary-deep)">Cómo captura</p>
       <h2 class="section-title">Lo que pasa apenas reenvías el correo</h2>
       <p class="section-subtitle">
         Reenvía el correo de alerta de Yape, Plin o tu banco a tu dirección de Chapa; extraemos el
@@ -80,6 +79,16 @@ const features = [
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
     padding: var(--space-xl) var(--space-lg);
+  }
+
+  .feature-card:first-child {
+    grid-column: span 2;
+  }
+
+  @media (max-width: 600px) {
+    .feature-card:first-child {
+      grid-column: span 1;
+    }
   }
 
   .feature-badge {
