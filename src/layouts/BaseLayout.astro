@@ -8,12 +8,12 @@ interface Props {
 }
 
 const {
-  title = 'Chapa — Tu dinero, todo en un lugar',
-  description = 'Chapa registra tus pagos de Yape y Plin por correo y te muestra en qué se va tu dinero, sin hojas de cálculo. Para personas y emprendedores en Perú.',
+  title = 'Chapa — Registra tus pagos de Yape y Plin sin escribir nada',
+  description = 'Chapa es la app de finanzas para Perú. Reenvía la alerta de Yape o Plin y el movimiento se registra solo, sin anotar nada a mano. Para personas y negocios.',
   noindex = false,
 } = Astro.props;
 
-const ogImage = new URL('/logo.png', Astro.site).toString();
+const ogImage = new URL('/og-image.png', Astro.site).toString();
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
