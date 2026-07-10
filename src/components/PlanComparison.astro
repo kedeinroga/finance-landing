@@ -1,4 +1,6 @@
 ---
+import { Icon } from 'astro-icon/components';
+
 const REGISTER_URL = 'https://app.chapa.money/welcome';
 
 const plans = [
@@ -51,7 +53,10 @@ const plans = [
             <p class="plan-tagline">{plan.tagline}</p>
             <ul class="plan-features">
               {plan.features.map((feature) => (
-                <li>{feature}</li>
+                <li>
+                  <Icon name="lucide:check" class="plan-check" />
+                  {feature}
+                </li>
               ))}
             </ul>
             {plan.cta && (
@@ -149,19 +154,21 @@ const plans = [
   }
 
   .plan-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
     font-size: 14px;
     line-height: 1.5;
     color: var(--text-secondary);
-    padding-left: var(--space-lg);
-    position: relative;
   }
 
-  .plan-features li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
+  .plan-features li :global(.plan-check) {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
     color: var(--income);
-    font-weight: 700;
+    stroke-width: 2.5;
   }
 
   .plan-cta {
