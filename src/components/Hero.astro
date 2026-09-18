@@ -1,8 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 
-const REGISTER_URL = 'https://app.chapa.money/welcome';
-const LOGIN_URL = 'https://app.chapa.money/login';
+const LOGIN_URL = 'https://finance.kedein.com/login';
 const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(new Date());
 ---
 
@@ -20,8 +19,7 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
         solo. Nada que anotar, nada que recordar.
       </p>
       <div class="hero-actions">
-        <a href={REGISTER_URL} class="btn btn-primary">Crear cuenta gratis</a>
-        <a href={LOGIN_URL} class="btn btn-outline">Iniciar sesión</a>
+        <a href={LOGIN_URL} class="btn btn-primary">Iniciar sesión</a>
       </div>
     </div>
 

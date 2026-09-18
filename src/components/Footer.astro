@@ -1,5 +1,6 @@
 ---
 const year = new Date().getFullYear();
+const host = new URL('/', Astro.site).host;
 ---
 
 <footer class="footer">
@@ -12,7 +13,7 @@ const year = new Date().getFullYear();
       <a href="/terms">Términos</a>
       <a href="/privacy">Privacidad</a>
     </nav>
-    <p>© {year} Chapa · chapa.money</p>
+    <p>© {year} Chapa · {host}</p>
   </div>
 </footer>
 
