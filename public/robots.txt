@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://chapa.money/sitemap-index.xml
+Sitemap: https://landing-finance.kedein.com/sitemap-index.xml

@@ -1,6 +1,5 @@
 ---
-const LOGIN_URL = 'https://app.chapa.money/login';
-const REGISTER_URL = 'https://app.chapa.money/welcome';
+const LOGIN_URL = 'https://finance.kedein.com/login';
 ---
 
 <header class="header">
@@ -13,12 +12,10 @@ const REGISTER_URL = 'https://app.chapa.money/welcome';
     <nav class="header-nav">
       <a href="/#captura">Cómo captura</a>
       <a href="/#para-quien">Para quién</a>
-      <a href="/#planes">Planes</a>
     </nav>
 
     <div class="header-actions">
-      <a href={LOGIN_URL} class="header-login">Iniciar sesión</a>
-      <a href={REGISTER_URL} class="btn btn-primary header-cta">Crear cuenta</a>
+      <a href={LOGIN_URL} class="btn btn-primary header-cta">Iniciar sesión</a>
     </div>
   </div>
 </header>
@@ -81,13 +78,6 @@ const REGISTER_URL = 'https://app.chapa.money/welcome';
     align-items: center;
     gap: var(--space-lg);
     flex-shrink: 0;
-  }
-
-  .header-login {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--ink);
-    text-decoration: none;
   }
 
   .header-cta {

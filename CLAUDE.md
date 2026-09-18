@@ -1,8 +1,9 @@
 # Chapa Landing — guía para Claude
 
 Landing de marketing de Chapa (finanzas para Perú). Sitio **estático** en Astro 5, desplegado en
-Cloudflare Pages al apex `https://chapa.money`. Su trabajo es **vender**: convertir visitas en
-registros en `https://app.chapa.money/welcome`. Público: 30–60 años en Perú, usuarios de Yape/Plin.
+Cloudflare Pages en `https://landing-finance.kedein.com`. Es una vitrina pública (SEO): el registro
+y el billing están apagados en producción, así que el único CTA es "Iniciar sesión" →
+`https://finance.kedein.com/login`. Público: 30–60 años en Perú, usuarios de Yape/Plin.
 
 ## Stack
 
@@ -19,7 +20,7 @@ registros en `https://app.chapa.money/welcome`. Público: 30–60 años en Perú
 
 - `src/pages/` — `index.astro` (home), `terms.astro` y `privacy.astro` (**noindex**, layout `LegalPage.astro`).
 - `src/components/` — Header, Hero (demo CSS-only), Features (`#captura`), AudienceSplit
-  (`#para-quien`), HowItWorks (`#como-funciona`), PlanComparison (`#planes`), CTA, Footer.
+  (`#para-quien`), HowItWorks (`#como-funciona`), CTA, Footer.
   La home compone en ese orden; el nav usa anchors a esos `id`.
 - `src/styles/tokens.css` — paleta Chapa portada de `chapa-app/src/presentation/constants/theme.ts`
   (**no se reinventa**) + capa editorial propia intencional: papel `--paper #faf7f1`, tipografías
