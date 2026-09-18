@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 
 export default defineConfig({
-  site: 'https://chapa.money',
+  site: 'https://landing-finance.kedein.com',
   output: 'static',
   integrations: [
     sitemap({

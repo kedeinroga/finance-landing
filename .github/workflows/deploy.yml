@@ -1,6 +1,6 @@
 name: deploy
 
-# Landing (Astro → static) → Cloudflare Pages project "chapa-landing" (chapa.money apex).
+# Landing (Astro → static) → Cloudflare Pages project "finance-landing" (landing-finance.kedein.com).
 # PRs publish a preview (*.pages.dev); pushes to main publish production.
 
 on:
@@ -38,4 +38,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=chapa-landing --branch=${{ github.ref_name }}
+          command: pages deploy dist --project-name=finance-landing --branch=${{ github.ref_name }}
