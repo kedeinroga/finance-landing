@@ -1,8 +1,8 @@
 # chapa-landing
 
-Landing de marketing de Chapa. Sitio estático en **Astro**, desplegado en Cloudflare Pages al
-apex `https://chapa.money`. Repo separado de `chapa-app` (la app Expo, en `app.chapa.money`) y de
-`chapa-api` (backend, en `api.chapa.money`).
+Landing de marketing de Chapa. Sitio estático en **Astro**, desplegado en Cloudflare Pages en
+`https://landing-finance.kedein.com` (proyecto `finance-landing`). Repo separado de `finance-app`
+(la app, en `finance.kedein.com`) y de `finance-api` (backend, en `finance-api.kedein.com`).
 
 ## Stack
 
@@ -38,12 +38,11 @@ src/
 ├── layouts/
 │   └── BaseLayout.astro     # <html>/<head>, fuentes Google Fonts, meta SEO + Open Graph
 ├── components/
-│   ├── Header.astro         # nav sticky: logo + anchors (#captura/#para-quien/#planes) + CTAs
+│   ├── Header.astro         # nav sticky: logo + anchors (#captura/#para-quien) + CTA
 │   ├── Hero.astro           # headline, demo CSS-only "notificación → registro" (sin JS)
 │   ├── Features.astro       # "Cómo captura" — grid de 4 tarjetas (id="captura")
 │   ├── AudienceSplit.astro  # Individuo vs. Emprendedor, dos columnas (id="para-quien")
 │   ├── HowItWorks.astro     # 3 pasos numerados (id="como-funciona")
-│   ├── PlanComparison.astro # Free vs. Pro, sin precio público (id="planes")
 │   ├── CTA.astro            # llamada a la acción final
 │   ├── Footer.astro         # logo + links a /terms y /privacy (propias de este sitio) + copyright
 │   └── LegalPage.astro      # layout compartido por terms.astro/privacy.astro (banner de borrador +
@@ -98,7 +97,7 @@ Expo/RN). Si la marca cambia ahí, hay que portar el cambio a mano:
   `--font-sans` y `--surface-tint` (el `--surface` de la app), no la capa editorial. Referencia
   cruzada al lenguaje de diseño de la app y al rediseño del dashboard (documentos del workspace
   privado del mantenedor).
-- **Patrones visuales heredados** (gradiente, card, botones de `app.chapa.money`): tomados de las
+- **Patrones visuales heredados** (gradiente, card, botones de la app): tomados de las
   páginas HTML de verify-email/reset-password en `chapa-api/Caddyfile`.
 - **Tagline oficial**: "Tu dinero, todo en un lugar".
 - **Assets**: `public/logo.png` y `public/favicon.png` son copias directas de
@@ -113,11 +112,10 @@ landing/app en el futuro, es una decisión de marca a tomar explícitamente, no 
 
 **Contenido que NO se inventa:** no hay testimonios (Chapa no tiene usuarios públicos todavía — la
 sección de Clever que los usa como inspiración se mapeó a un diferenciador real, "Para quién", en
-vez de fabricar nombres/citas) ni precio público de Pro (activación es manual hoy, sin pasarela de
-pago — `PlanComparison.astro` tiene un slot de precio por plan: Free muestra "Gratis", Pro muestra
-"Próximamente" en ese mismo slot mientras no haya precio publicado). Activar el precio de Pro es
-solo llenar `price: { amount, period }` en el objeto del plan — sin tocar markup. Si esto cambia,
-actualizar ahí con datos reales, no con placeholders.
+vez de fabricar nombres/citas). No hay sección de planes ni precios: el registro y el billing están
+apagados en producción, así que la landing solo ofrece iniciar sesión. Si se reabren, hay que
+restaurar la sección de planes desde el historial de git (`PlanComparison.astro`) y volver a agregar
+un CTA de alta.
 
 ## Contenido legal (`/terms`, `/privacy`)
 
@@ -130,7 +128,7 @@ sin completar). Decisión tomada con el usuario (2026-06-30): publicar igual, pe
 - Con un banner visible (`LegalPage.astro` → `.legal-notice`) que dice explícitamente "documento
   informativo, pendiente de revisión legal" y que faltan los datos de identificación de la empresa.
 - **Sin inventar** esos datos ni un correo de contacto — donde la fuente original tenía
-  `legal@chapa.money (ficticio)`, el copy dice ahora que el canal de contacto todavía no existe.
+  un correo de contacto ficticio, el copy dice ahora que el canal de contacto todavía no existe.
 - Con `noindex, nofollow` (`<BaseLayout noindex>`) y excluidas de `sitemap-index.xml`
   (`astro.config.mjs` → `sitemap({ filter: ... })`), para no indexar contenido que sabemos
   incompleto mientras sigue siendo accesible por link directo desde el footer.
@@ -146,11 +144,15 @@ mientras exista.
 - Identificadores y comentarios en **inglés**, copy de la UI en **español** (igual que `chapa-app`).
 - Sin literales de color/spacing sueltos en los `<style>` — usar las variables de `tokens.css`
   (`var(--primary)`, `var(--space-lg)`, etc.).
-- Los CTAs y links de auth (`/login`, `/register`) apuntan siempre a `app.chapa.money`. No se
-  autentica nada acá. `/terms` y `/privacy` sí son propias de este sitio (ver sección de arriba).
+- El único CTA de auth es "Iniciar sesión" → `https://finance.kedein.com/login`; no hay link de
+  registro (registro cerrado). No se autentica nada acá. `/terms` y `/privacy` sí son propias de este
+  sitio (ver sección de arriba).
 - Esta landing **no** importa nada de `chapa-app` ni `chapa-api` — es un sitio estático
   independiente, sin llamadas a la API salvo los links de los CTAs.
 
 ## Deploy
 
-Cloudflare Pages, preset "Astro" (`npm run build`, output `dist/`), dominio apex `chapa.money`.
+Cloudflare Pages, preset "Astro" (`npm run build`, output `dist/`), proyecto `finance-landing`,
+dominio `landing-finance.kedein.com`. El hostname debe ser de primer nivel bajo `kedein.com` (guion,
+no punto): Universal SSL gratuito no cubre un segundo nivel. Despliega por GitHub Actions
+(`.github/workflows/deploy.yml`): push a `main` = producción; PR = preview `*.pages.dev`.
