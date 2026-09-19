@@ -1,37 +1,32 @@
 ---
 import { Icon } from 'astro-icon/components';
 
-const features = [
+const methods = [
   {
     icon: 'lucide:mail-check',
-    title: 'Captura automática',
+    title: 'Reenvía tus alertas',
     description:
-      'Reenvía el correo de Yape, Plin o tu banco y el pago se registra solo. Cero anotaciones manuales.',
+      'Reenvía a tu dirección de Chapa la alerta de Yape o de tu banco (BCP, Interbank, BBVA o Scotiabank). Extraemos el monto y la persona, sea un pago con Yape, Plin o tarjeta, y queda registrado.',
   },
   {
-    icon: 'lucide:bar-chart-3',
-    title: 'Dashboard a tu medida',
+    icon: 'lucide:mail',
+    title: 'Conecta tu Gmail',
+    beta: true,
     description:
-      'Visibilidad de gasto por categoría si eres independiente, o caja del día por fuente si tienes un negocio.',
+      'Autoriza tu Gmail y detectamos las alertas de tu banco solas, sin reenviar nada. Solo leemos alertas bancarias, nunca tus correos personales.',
   },
   {
-    icon: 'lucide:receipt',
-    title: 'Cierre de caja',
+    icon: 'lucide:history',
+    title: 'Importa tu historial',
+    beta: true,
     description:
-      'Emprendedores: cierra tu caja al final del día y arranca el siguiente lote con un total claro de ingresos, gastos y neto.',
+      'Con Gmail conectado, elige un mes y revisa lo que encontramos antes de guardarlo. Marcamos los posibles duplicados para que no empieces de cero.',
   },
   {
-    icon: 'lucide:globe',
-    title: 'Multi-moneda',
+    icon: 'lucide:pencil-line',
+    title: 'Anótalo a mano',
     description:
-      'Soles y dólares se llevan por separado, sin mezclarse en un solo total. Cada moneda con su propio resumen.',
-  },
-  {
-    icon: 'lucide:zap',
-    title: 'Conexión Gmail',
-    soon: true,
-    description:
-      'Autoriza tu Gmail y las alertas de tu banco se detectan en tiempo real, sin reenviar nada. Disponible en beta cerrada mientras completamos la verificación de Google.',
+      '¿Pagaste en efectivo? Agrega cualquier ingreso o gasto en segundos, con su categoría, y queda junto al resto.',
   },
 ];
 ---
@@ -39,23 +34,24 @@ const features = [
 <section class="features" id="captura">
   <div class="container">
     <div class="section-head center" data-reveal>
-      <h2 class="section-title">Lo que pasa apenas reenvías el correo</h2>
+      <h2 class="section-title">Cuatro formas de registrar tus movimientos</h2>
       <p class="section-subtitle">
-        Reenvía el correo de alerta de Yape, Plin o tu banco a tu dirección de Chapa; extraemos el
-        monto y la persona, y lo sumamos a tu registro sin que toques nada.
+        Usa la que te acomode, o combínalas: todas terminan en el mismo dashboard.
       </p>
     </div>
 
-    <div class="features-grid">
+    <div class="methods-grid">
       {
-        features.map((feature, i) => (
-          <div class="feature-card" data-reveal style={`transition-delay:${i * 0.08}s`}>
-            <div class="feature-badge">
-              <Icon name={feature.icon} />
+        methods.map((method, i) => (
+          <div class="method-card" data-reveal style={`transition-delay:${i * 0.08}s`}>
+            <div class="method-badge">
+              <Icon name={method.icon} />
             </div>
-            <h3>{feature.title}</h3>
-            {feature.soon && <span class="feature-badge-soon">Próximamente</span>}
-            <p>{feature.description}</p>
+            <div class="method-title-row">
+              <h3>{method.title}</h3>
+              {method.beta && <span class="tag-beta">Beta</span>}
+            </div>
+            <p>{method.description}</p>
           </div>
         ))
       }
@@ -68,30 +64,39 @@ const features = [
     padding-block: var(--space-xxxl);
   }
 
-  .features-grid {
+  /* 5 columnas para una rejilla asimétrica: 3+2 arriba, 2+3 abajo */
+  .methods-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    grid-template-columns: repeat(5, 1fr);
     gap: var(--space-lg);
   }
 
-  .feature-card {
+  .method-card {
+    grid-column: span 2;
     background: var(--surface);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
     padding: var(--space-xl) var(--space-lg);
   }
 
-  .feature-card:first-child {
-    grid-column: span 2;
+  .method-card:nth-child(1),
+  .method-card:nth-child(4) {
+    grid-column: span 3;
   }
 
-  @media (max-width: 600px) {
-    .feature-card:first-child {
+  @media (max-width: 760px) {
+    .methods-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .method-card,
+    .method-card:nth-child(1),
+    .method-card:nth-child(4) {
       grid-column: span 1;
     }
   }
 
-  .feature-badge {
+  .method-badge {
     width: 44px;
     height: 44px;
     display: flex;
@@ -103,29 +108,26 @@ const features = [
     color: var(--primary-deep);
   }
 
-  .feature-badge :global(svg) {
+  .method-badge :global(svg) {
     width: 22px;
     height: 22px;
     stroke-width: 1.75;
   }
 
-  .feature-badge-soon {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--text-muted);
+  .method-title-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
     margin-bottom: var(--space-sm);
   }
 
-  .feature-card h3 {
+  .method-card h3 {
     font-size: 18px;
     font-weight: 600;
-    margin-bottom: var(--space-sm);
   }
 
-  .feature-card p {
+  .method-card p {
     font-size: 14px;
     line-height: 1.6;
     color: var(--text-secondary);

@@ -5,7 +5,7 @@ const profiles = [
     accent: 'individual' as const,
     title: 'Visibilidad de tu gasto',
     description:
-      'Ves en qué se va tu plata cada semana, por categoría, con un presupuesto mensual que te avisa antes de que te pases.',
+      'Ves en qué se va tu plata cada semana, por categoría, con un presupuesto mensual por categoría que te muestra cuánto llevas gastado.',
     bars: [
       { label: 'Comida', percent: 72, color: 'var(--warning)' },
       { label: 'Transporte', percent: 45, color: 'var(--plin)' },
@@ -17,7 +17,7 @@ const profiles = [
     accent: 'entrepreneur' as const,
     title: 'La caja del día, clara',
     description:
-      'Ves cuánto cobraste hoy por Yape, Plin y efectivo, separado de tus gastos personales, y cierras caja por lotes sin hacer cuentas a mano.',
+      'Ves cuánto cobraste hoy por Yape, Plin y efectivo, y cierras caja por lotes sin hacer cuentas a mano.',
     bars: [
       { label: 'Yape', percent: 58, color: 'var(--yape)' },
       { label: 'Plin', percent: 31, color: 'var(--plin)' },
@@ -32,8 +32,8 @@ const profiles = [
     <div class="section-head center" data-reveal>
       <h2 class="section-title">Chapa se adapta a cómo manejas tu plata</h2>
       <p class="section-subtitle">
-        El mismo registro automático de Yape y Plin, detectado por correo y mostrado distinto
-        según si vives de un sueldo o de tu propio negocio.
+        El mismo registro, por correo, Gmail o a mano, mostrado distinto según si vives de un
+        sueldo o de tu propio negocio.
       </p>
     </div>
 
