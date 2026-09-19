@@ -15,7 +15,7 @@ const sections = [
   },
   {
     title: '3. Uso del servicio',
-    body: 'Chapa te permite registrar cobros, gastos y organizar tu información financiera personal o de tu negocio. Debes usar la app de forma lícita y con datos veraces.',
+    body: 'Chapa te permite registrar cobros, gastos y organizar tu información financiera personal o de tu negocio, ya sea reenviando correos de tu banco, conectando tu Gmail, con notificaciones en Android o anotando a mano. Debes usar la app de forma lícita y con datos veraces.',
   },
   {
     title: '4. Cuenta y seguridad',
@@ -23,22 +23,44 @@ const sections = [
   },
   {
     title: '5. Datos y privacidad',
-    body: 'Tratamos tus datos conforme a nuestra Política de Privacidad. No vendemos tu información personal. Puedes solicitar la eliminación de tu cuenta desde la app.',
+    body: 'Tratamos tus datos conforme a nuestra Política de Privacidad. No vendemos tu información personal. Puedes eliminar tu cuenta desde la app; el alcance de esa eliminación se explica en la Política de Privacidad.',
   },
   {
-    title: '6. Registro por correo del banco (opcional)',
-    body: 'Si activas esta función, te damos una dirección de reenvío y tú decides qué correos de alerta de tu banco reenvías. Solo leemos esos correos para extraer la transacción; verificamos que sean de tu banco y descartamos el contenido tras procesarlo. Puedes desconectarla cuando quieras. Ver la Política de Privacidad para el detalle.',
+    title: '6. Registro por correo del banco y conexión con Gmail (opcional)',
+    body: 'Son funciones opcionales que activas tú y que puedes desactivar cuando quieras. Ver la Política de Privacidad para el detalle.',
+    items: [
+      'Reenvío: te damos una dirección de reenvío y tú decides qué alertas de tu banco reenvías. Verificamos que provengan de tu banco, extraemos la transacción y descartamos el contenido del correo.',
+      'Conexión con Gmail: si la habilitas, autorizas a Chapa a acceder a tu bandeja mediante OAuth, con permiso de solo lectura, únicamente para detectar alertas bancarias. Puedes revocar el acceso desde Chapa o desde tu cuenta de Google.',
+      'Importar historial: con Gmail conectado puedes traer alertas de meses anteriores; revisas los movimientos encontrados y decides cuáles guardar.',
+    ],
   },
   {
-    title: '7. Limitación de responsabilidad',
-    body: 'Chapa es una herramienta de registro y no sustituye asesoría contable, tributaria ni legal. No garantizamos disponibilidad ininterrumpida del servicio.',
+    title: '7. Notificaciones en Android (opcional)',
+    body: 'En Android puedes autorizar a Chapa a leer notificaciones para registrar tus cobros de Yape y Plin. Solo procesamos las notificaciones de las apps de Yape y de los bancos compatibles; las demás se ignoran. Puedes retirar el permiso en los ajustes de tu teléfono cuando quieras.',
   },
   {
-    title: '8. Cambios',
+    title: '8. Grupo familiar (opcional)',
+    body: 'Las cuentas de tipo Individuo pueden crear o unirse a un grupo familiar, con un administrador y hasta 5 miembros invitados.',
+    items: [
+      'Al aceptar una invitación consientes expresamente que los movimientos que registres desde que te unes sean visibles para el administrador y los aportantes del grupo, según se detalla en la Política de Privacidad.',
+      'Quien administra el grupo debe invitar solo a personas que estén de acuerdo y es responsable de las invitaciones que envía.',
+      'Puedes salir del grupo cuando quieras: dejan de verse tus movimientos y tu cuenta vuelve al plan gratuito. Si el administrador pierde su Plan Pro, el grupo también vuelve al plan gratuito.',
+    ],
+  },
+  {
+    title: '9. Plan gratuito y Plan Pro',
+    body: 'El plan gratuito incluye límites de uso (por ejemplo, cantidad de movimientos por mes). El Plan Pro amplía funciones y límites según se describan en la app.',
+  },
+  {
+    title: '10. Limitación de responsabilidad',
+    body: 'Chapa es una herramienta de registro y no sustituye asesoría contable, tributaria ni legal. Los datos que Chapa extrae automáticamente de correos o notificaciones pueden contener errores: te recomendamos revisarlos. No garantizamos disponibilidad ininterrumpida del servicio.',
+  },
+  {
+    title: '11. Cambios',
     body: 'Podemos actualizar estos términos. Te avisaremos por correo o dentro de la app cuando los cambios sean relevantes. El uso continuado implica aceptación.',
   },
   {
-    title: '9. Contacto',
+    title: '12. Contacto',
     body: 'Todavía no publicamos un canal oficial de contacto legal. Mientras tanto, puedes escribirnos desde la propia app.',
   },
 ];
@@ -46,7 +68,7 @@ const sections = [
 
 <BaseLayout
   title="Términos de uso — Chapa"
-  description="Términos de uso de Chapa. Documento informativo, pendiente de revisión legal."
+  description="Términos de uso de Chapa."
   noindex
 >
   <Header />

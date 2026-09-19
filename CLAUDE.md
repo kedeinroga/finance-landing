@@ -19,7 +19,8 @@ y el billing están apagados en producción, así que el único CTA es "Iniciar 
 ## Estructura
 
 - `src/pages/` — `index.astro` (home), `terms.astro` y `privacy.astro` (**noindex**, layout `LegalPage.astro`).
-- `src/components/` — Header, Hero (demo CSS-only), Features (`#captura`), AudienceSplit
+- `src/components/` — Header, Hero (demo CSS-only), Features (`#captura`), Capabilities
+  (`#funciones`), AudienceSplit
   (`#para-quien`), HowItWorks (`#como-funciona`), CTA, Footer.
   La home compone en ese orden; el nav usa anchors a esos `id`.
 - `src/styles/tokens.css` — paleta Chapa portada de `chapa-app/src/presentation/constants/theme.ts`

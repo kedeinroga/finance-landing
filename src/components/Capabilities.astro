@@ -1,0 +1,182 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const capabilities = [
+  {
+    icon: 'lucide:layout-dashboard',
+    title: 'Dashboard a tu medida',
+    description:
+      'Si eres independiente, ves tu gasto por categoría. Si tienes un negocio, ves la caja del día por Yape, Plin y efectivo.',
+  },
+  {
+    icon: 'lucide:receipt',
+    title: 'Cierre de caja',
+    description:
+      'Para emprendedores: cierra el día y arranca el siguiente lote con ingresos, gastos y neto claros.',
+  },
+  {
+    icon: 'lucide:piggy-bank',
+    title: 'Presupuestos',
+    description:
+      'Ponle un tope mensual a cada categoría y mira cuánto llevas gastado; la barra cambia de color al acercarte al límite.',
+  },
+  {
+    icon: 'lucide:chart-pie',
+    title: 'Análisis',
+    description:
+      'Para individuos: resumen semanal, resumen del mes comparado con el anterior y detección de gastos recurrentes.',
+  },
+  {
+    icon: 'lucide:arrow-left-right',
+    title: 'Traspasos y pagos de tarjeta',
+    description:
+      'Detectamos cuando mueves plata entre tus cuentas o pagas tu tarjeta. Tú confirmas y no se cuenta como ingreso ni gasto.',
+  },
+  {
+    icon: 'lucide:landmark',
+    title: 'Mis cuentas',
+    description:
+      'Registra tus cuentas y tarjetas para que Chapa reconozca mejor tus traspasos.',
+  },
+  {
+    icon: 'lucide:globe',
+    title: 'Multi-moneda',
+    description:
+      'Soles y dólares se llevan por separado, sin mezclarse en un solo total. Cada moneda con su propio resumen.',
+  },
+  {
+    icon: 'lucide:users',
+    title: 'Grupo familiar',
+    beta: true,
+    description:
+      'Reúne a tu hogar, hasta 6 personas, y mira el consolidado de ingresos y gastos, con roles de aportante y gastador.',
+  },
+  {
+    icon: 'lucide:download',
+    title: 'Exporta a CSV',
+    description:
+      'Descarga tus movimientos de cualquier rango de fechas para llevarlos a Excel o a tu contador.',
+  },
+  {
+    icon: 'lucide:smartphone',
+    title: 'Instálala como app',
+    description:
+      'Agrégala a tu pantalla de inicio desde Ajustes y úsala como cualquier app, sin pasar por una tienda.',
+  },
+];
+---
+
+<section class="capabilities" id="funciones">
+  <div class="container capabilities-inner">
+    <div class="capabilities-head" data-reveal>
+      <h2 class="section-title">Después de registrar, tu plata en orden</h2>
+      <p class="section-subtitle">
+        Chapa no solo anota: separa lo que no es gasto, te muestra cuánto llevas y te deja llevarte
+        tus datos cuando quieras.
+      </p>
+    </div>
+
+    <ul class="capabilities-list">
+      {
+        capabilities.map((item, i) => (
+          <li class="capability" data-reveal style={`transition-delay:${(i % 2) * 0.08}s`}>
+            <span class="capability-icon" aria-hidden="true">
+              <Icon name={item.icon} />
+            </span>
+            <div>
+              <h3>
+                {item.title}
+                {item.beta && <span class="tag-beta">Beta</span>}
+              </h3>
+              <p>{item.description}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .capabilities {
+    padding-block: var(--space-xxxl);
+    border-top: 1px solid var(--border);
+  }
+
+  .capabilities-inner {
+    display: grid;
+    grid-template-columns: 0.8fr 1.6fr;
+    gap: var(--space-xxl);
+    align-items: start;
+  }
+
+  .capabilities-head {
+    position: sticky;
+    top: calc(72px + var(--space-xl));
+  }
+
+  .capabilities-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--space-xl);
+  }
+
+  .capability {
+    display: flex;
+    gap: var(--space-md);
+    padding-block: var(--space-lg);
+    border-top: 1px solid var(--border);
+  }
+
+  .capability-icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    background: var(--primary-light);
+    color: var(--primary-deep);
+  }
+
+  .capability-icon :global(svg) {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.75;
+  }
+
+  .capability h3 {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+  }
+
+  .capability p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 900px) {
+    .capabilities-inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+
+    .capabilities-head {
+      position: static;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .capabilities-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -7,25 +7,62 @@ import Footer from '../components/Footer.astro';
 const sections = [
   {
     title: 'Qué datos tratamos',
-    body: 'Recopilamos solo lo necesario para que Chapa funcione. No te pedimos tu nombre ni tu fecha de nacimiento para registrarte.',
+    body: 'Recopilamos solo lo necesario para que Chapa funcione. Para registrarte no te pedimos tu nombre ni tu fecha de nacimiento.',
     items: [
-      'Tu correo electrónico, guardado cifrado y como hash, separado de tu perfil.',
-      'Tus transacciones de Yape y Plin, y las alertas de tu banco si activas el reenvío o la conexión con Gmail.',
-      'Datos técnicos mínimos de seguridad (por ejemplo, para detectar accesos indebidos a tu cuenta).',
+      'Tu correo electrónico, guardado cifrado y como hash, separado de tu perfil. Tu contraseña se guarda solo como hash, nunca en texto plano.',
+      'Tu nombre completo, solo si decides agregarlo en tu perfil. Se guarda cifrado y lo usamos para reconocer los traspasos entre tus propias cuentas.',
+      'Tus movimientos: monto, moneda, tipo, fecha, fuente (Yape, Plin, banco, tarjeta o efectivo), nombre de la persona o comercio, nota y categoría; además de las cuentas, tarjetas y presupuestos que registres.',
+      'En Android, un identificador de tu dispositivo para vincularlo a tu cuenta.',
+      'Datos técnicos mínimos de seguridad (por ejemplo, tu dirección IP en registros y los intentos fallidos de acceso) para detectar accesos indebidos a tu cuenta.',
     ],
   },
   {
     title: 'Registro por correo del banco',
-    body: 'Solo recibimos los correos que tú reenvías a tu dirección de Chapa.',
+    body: 'Es una función opcional. Solo recibimos los correos que tú reenvías a tu dirección de Chapa.',
     items: [
       'Verificamos que el remitente sea tu banco; si no, lo descartamos.',
       'Extraemos la transacción (monto, comercio, fecha) del contenido del correo.',
-      'Descartamos el contenido del correo: nunca lo guardamos.',
+      'Mientras espera su turno, el correo se guarda cifrado; al terminar la extracción se elimina. Solo queda la transacción.',
     ],
   },
   {
     title: 'Conexión directa con Gmail (beta)',
-    body: 'Si activas la conexión directa con Gmail — función en beta cerrada, limitada a un grupo reducido de usuarios — autorizas a Chapa a acceder a tu bandeja mediante OAuth para detectar automáticamente los correos de tu banco, sin que tengas que reenviarlos. Solo leemos los correos que identificamos como alertas bancarias: no accedemos, leemos ni guardamos correos personales ni de otro tipo. Puedes desconectar el acceso cuando quieras desde Ajustes.',
+    body: 'Es una función opcional, en beta y habilitada solo para un grupo reducido de usuarios. Si la activas, autorizas a Chapa mediante OAuth, con permiso de solo lectura, para detectar automáticamente los correos de tu banco sin que tengas que reenviarlos.',
+    items: [
+      'Solo leemos los correos que identificamos como alertas bancarias: no accedemos, leemos ni guardamos correos personales ni de otro tipo.',
+      'Guardamos cifrados tu dirección de Gmail y las credenciales de acceso que Google nos entrega. Nunca conocemos tu contraseña de Google.',
+      'Para enterarnos de correos nuevos usamos las notificaciones de Google (Pub/Sub).',
+      'Al desconectar Gmail desde Ajustes detenemos la vigilancia de tu bandeja, revocamos el acceso ante Google y eliminamos la conexión guardada. También puedes revocarlo desde tu cuenta de Google.',
+      'El uso que hace Chapa de la información recibida de las APIs de Google cumple la Política de datos de usuario de los servicios de API de Google, incluidos los requisitos de uso limitado.',
+    ],
+  },
+  {
+    title: 'Importar historial de Gmail',
+    body: 'Con Gmail conectado puedes elegir un mes y buscar en tu correo las alertas bancarias desde esa fecha.',
+    items: [
+      'Los movimientos encontrados quedan pendientes de tu revisión: no se registra nada hasta que confirmas, y marcamos los posibles duplicados.',
+      'Mientras un movimiento espera tu revisión, el contenido de su correo se guarda cifrado; al confirmarlo o descartarlo se elimina y solo queda el movimiento que aceptaste.',
+    ],
+  },
+  {
+    title: 'Notificaciones en Android',
+    body: 'En la app de Android puedes autorizar el acceso a notificaciones para registrar tus cobros de Yape y Plin. Es un permiso especial que solo activas tú.',
+    items: [
+      'Solo procesamos las notificaciones de las apps de Yape y de los bancos compatibles (Interbank, BBVA, Scotiabank y BanBif). Las de cualquier otra app se ignoran en tu teléfono.',
+      'Extraemos el monto y la persona, y guardamos el movimiento junto con el texto de la notificación, que solo tú puedes ver.',
+      'Puedes retirar el permiso cuando quieras desde los ajustes de tu teléfono.',
+    ],
+  },
+  {
+    title: 'Grupo familiar',
+    body: 'Es una función opcional para cuentas de tipo Individuo: un administrador y hasta 5 miembros invitados. Nada se comparte sin que cada miembro lo acepte expresamente al unirse.',
+    items: [
+      'Los movimientos que registres desde que te unes son visibles para el administrador y para los aportantes del grupo: monto, moneda, tipo, fecha, nombre del remitente o destinatario, nota y categoría. Tu correo aparece en la lista de miembros.',
+      'No ven tus movimientos anteriores a tu ingreso ni el texto original de tus notificaciones bancarias.',
+      'Los miembros con rol gastador solo ven sus propios datos.',
+      'Guardamos, cifrado, el correo al que se envía cada invitación. Registramos la versión del consentimiento y la fecha en que lo aceptaste.',
+      'Al salir del grupo, o si eliminas tu cuenta, dejan de verse tus movimientos y tu cuenta vuelve al plan gratuito.',
+    ],
   },
   {
     title: 'Qué NO hacemos',
@@ -33,49 +70,63 @@ const sections = [
     items: [
       'No accedemos a tu bandeja de entrada por reenvío: solo recibimos lo que tú nos reenvías.',
       'No leemos ni guardamos correos personales, ni procesamos imágenes o adjuntos.',
-      'No entramos a tu banca ni ejecutamos acciones en tu cuenta bancaria.',
+      'No leemos las notificaciones de otras apps ni entramos a tu banca ni ejecutamos acciones en tu cuenta bancaria.',
       'No vendemos tu información a nadie.',
-      'Si activas la conexión con Gmail (beta cerrada), sí accedemos a tu bandeja mediante autorización OAuth, únicamente para detectar alertas bancarias — puedes revocarla cuando quieras.',
+      'Si activas la conexión con Gmail (beta), sí accedemos a tu bandeja mediante autorización OAuth, únicamente para detectar alertas bancarias. Puedes revocarla cuando quieras.',
     ],
   },
   {
     title: 'Inteligencia artificial',
-    body: 'Para leer la alerta usamos Google Gemini en una modalidad que no usa tu contenido para entrenar. Chapa tampoco entrena modelos con tus datos.',
+    body: 'Para leer la alerta usamos Google Gemini y le enviamos solo el fragmento necesario, en una modalidad que no usa tu contenido para entrenar. Chapa tampoco entrena modelos con tus datos. Como la lectura es automática puede equivocarse: revisa tus movimientos y corrígelos desde la app.',
   },
   {
     title: 'Con quién compartimos',
     body: 'Solo con proveedores que nos ayudan a operar el servicio, como encargados de tratamiento y bajo acuerdos de confidencialidad:',
     items: [
-      'Cloudflare: recibe el correo que reenvías y nos lo entrega de forma segura.',
-      'Google (Gemini): procesa el contenido del correo para extraer la transacción; si conectas Gmail, también gestiona la autorización OAuth.',
-      'Resend: envía los correos operativos de la plataforma.',
-      'Nuestro proveedor de servidor: aloja la aplicación y la base de datos.',
+      'Cloudflare: recibe el correo que reenvías y nos lo entrega de forma segura; también provee DNS y seguridad de borde, aloja este sitio y la app web, y guarda los archivos CSV que exportas (con un enlace que vence en 1 hora).',
+      'Google: procesa el contenido de la alerta con Gemini para extraer la transacción; aloja nuestro servidor (Google Cloud); y, si conectas Gmail, gestiona la autorización OAuth y las notificaciones de correos nuevos.',
+      'Neon: aloja nuestra base de datos (sobre infraestructura de Amazon Web Services).',
+      'Resend: envía los correos operativos de la plataforma (verificación de cuenta, restablecer contraseña, invitaciones al grupo familiar y avisos de reconexión de Gmail).',
     ],
   },
   {
     title: 'Datos fuera de Perú',
-    body: 'Algunos proveedores procesan datos fuera del Perú. Esta transferencia se hace con tu consentimiento y bajo acuerdos de tratamiento de datos con cada uno.',
+    body: 'Nuestros servidores y los de varios proveedores están en Estados Unidos (Google Cloud en us-east4 y la base de datos de Neon en AWS us-east-1), y Cloudflare opera de forma global. Esta transferencia se hace con tu consentimiento y bajo acuerdos de tratamiento de datos con cada uno.',
   },
   {
     title: 'Seguridad',
     body: 'Protegemos tus datos con varias capas de seguridad:',
     items: [
       'Cifrado en tránsito (TLS) en todas las conexiones.',
-      'Cifrado a nivel de columna para los datos sensibles en la base de datos.',
-      'Tu dirección de reenvío se guarda hasheada, no en texto plano.',
+      'Cifrado a nivel de columna para tu correo, tu nombre, la dirección y credenciales de tu Gmail conectado, las invitaciones familiares y el contenido de los correos en cola. Tus movimientos se protegen con TLS y control de acceso, pero no van cifrados columna por columna.',
+      'Tu contraseña y tu dirección de reenvío se guardan hasheadas, no en texto plano.',
       'Validamos la firma y autenticidad (DKIM) de los correos antes de procesarlos.',
+      'Bloqueo temporal de la cuenta tras varios intentos fallidos de acceso.',
     ],
   },
   {
+    title: 'Cookies y almacenamiento',
+    body: 'No usamos cookies de publicidad ni herramientas de analítica o rastreo de terceros. La app web guarda tu sesión en el almacenamiento local de tu navegador y, si la instalas, un service worker para funcionar como app. Este sitio carga sus tipografías desde Google Fonts.',
+  },
+  {
     title: 'Retención y eliminación de datos',
-    body: 'Conservamos tu información mientras tu cuenta esté activa. Puedes solicitar la eliminación de tu cuenta y de tus datos personales en cualquier momento desde la app o escribiéndonos; procesamos esa solicitud tan pronto como sea posible.',
+    body: 'Esto es lo que conservamos y por cuánto tiempo:',
+    items: [
+      'Contenido de correos: no se conserva. Se elimina al terminar la extracción (o, en la importación de historial, al confirmar o descartar).',
+      'Registro de correos procesados (remitente, fecha y estado, sin contenido): hasta 1 año.',
+      'Tus movimientos, cuentas y perfil: mientras tu cuenta esté activa.',
+      'Al eliminar tu cuenta desde la app, cerramos tu acceso de inmediato, revocamos tus sesiones y te retiramos de tu grupo familiar. Hoy la eliminación es lógica: los registros de la cuenta se conservan en nuestra base de datos y todavía no contamos con un proceso de supresión definitiva.',
+      'Al desconectar el reenvío se elimina tu dirección de reenvío y el registro de correos procesados. Al desconectar Gmail se elimina la conexión guardada; el registro de correos procesados sigue el plazo de 1 año.',
+    ],
   },
   {
     title: 'Tus derechos (ARCO)',
-    body: 'Tienes derecho a acceder, rectificar, eliminar tus datos y revocar tu consentimiento en cualquier momento:',
+    body: 'Tienes derecho a acceder, rectificar, cancelar y oponerte al tratamiento de tus datos, y a revocar tu consentimiento en cualquier momento:',
     items: [
-      'Desde la app puedes desconectar el correo o la conexión con Gmail (borra tu dirección/autorización y la ingesta).',
-      'Desde la app puedes eliminar tu cuenta por completo.',
+      'Acceso: desde la app puedes ver todos tus movimientos y exportarlos a CSV.',
+      'Rectificación: puedes editar tus movimientos, categorías, cuentas y tu nombre desde la app.',
+      'Revocación: puedes desconectar el correo o la conexión con Gmail, retirar el permiso de notificaciones en Android y salir de un grupo familiar.',
+      'Cancelación: puedes eliminar tu cuenta desde la app, con el alcance explicado en la sección anterior.',
       'Puedes reclamar ante la Autoridad Nacional de Protección de Datos Personales (ANPD) del MINJUS.',
     ],
   },
@@ -88,12 +139,12 @@ const sections = [
 
 <BaseLayout
   title="Privacidad y datos — Chapa"
-  description="Cómo Chapa trata tus datos personales. Documento informativo, pendiente de revisión legal."
+  description="Cómo Chapa trata tus datos personales."
   noindex
 >
   <Header />
   <main>
-    <LegalPage title="Privacidad y datos" lastUpdated="julio 2026" sections={sections} />
+    <LegalPage title="Privacidad y datos" lastUpdated="septiembre 2026" sections={sections} />
   </main>
   <Footer />
 </BaseLayout>

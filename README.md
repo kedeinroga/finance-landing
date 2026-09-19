@@ -9,7 +9,7 @@ Landing de marketing de Chapa. Sitio estático en **Astro**, desplegado en Cloud
 - [Astro](https://docs.astro.build/) 5, salida estática (`output: 'static'`, sin adapter SSR).
 - Sin framework de UI: componentes `.astro` + CSS plano (sin Tailwind ni CSS-in-JS).
 - `@astrojs/sitemap` para `sitemap-index.xml` (excluye `/terms` y `/privacy`, ver más abajo).
-- `astro-icon` + `@iconify-json/lucide` para los íconos de `Features.astro` — se renderizan como SVG
+- `astro-icon` + `@iconify-json/lucide` para los íconos de `Features.astro` y `Capabilities.astro` — se renderizan como SVG
   inline en build, cero JS en cliente y cero requests extra.
 - TypeScript estricto (`astro/tsconfigs/strict`); `astro check` corre como parte de `build`.
 
@@ -38,22 +38,23 @@ src/
 ├── layouts/
 │   └── BaseLayout.astro     # <html>/<head>, fuentes Google Fonts, meta SEO + Open Graph
 ├── components/
-│   ├── Header.astro         # nav sticky: logo + anchors (#captura/#para-quien) + CTA
+│   ├── Header.astro         # nav sticky: logo + anchors (#captura/#funciones/#para-quien) + CTA
 │   ├── Hero.astro           # headline, demo CSS-only "notificación → registro" (sin JS)
-│   ├── Features.astro       # "Cómo captura" — grid de 4 tarjetas (id="captura")
+│   ├── Features.astro       # "Cómo captura" — 4 formas de registrar, rejilla asimétrica (id="captura")
+│   ├── Capabilities.astro   # "Funciones" — lista de 10 capacidades de la app, con marca Beta (id="funciones")
 │   ├── AudienceSplit.astro  # Individuo vs. Emprendedor, dos columnas (id="para-quien")
 │   ├── HowItWorks.astro     # 3 pasos numerados (id="como-funciona")
 │   ├── CTA.astro            # llamada a la acción final
 │   ├── Footer.astro         # logo + links a /terms y /privacy (propias de este sitio) + copyright
-│   └── LegalPage.astro      # layout compartido por terms.astro/privacy.astro (banner de borrador +
-│                              lista de secciones título/cuerpo)
+│   └── LegalPage.astro      # layout compartido por terms.astro/privacy.astro (lista de
+│                              secciones título/cuerpo)
 ├── pages/
 │   ├── index.astro          # home; compone los componentes de arriba en orden
 │   ├── terms.astro           # /terms — noindex (ver "Contenido legal" más abajo)
 │   └── privacy.astro         # /privacy — noindex (ver "Contenido legal" más abajo)
 └── styles/
     ├── tokens.css            # variables CSS: paleta Chapa + capa editorial (paper/ink/fuentes)
-    └── global.css            # reset + utilitarias (.container, .btn-*, .pill, [data-reveal])
+    └── global.css            # reset + utilitarias (.container, .btn-*, .pill, .tag-beta, [data-reveal])
 public/
 ├── logo.png                  # copiado de chapa-app/assets/icon.png
 ├── favicon.png                # copiado de chapa-app/assets/favicon.png
@@ -123,21 +124,19 @@ El copy de estas dos páginas viene de `chapa-app/app/(auth)/terms.tsx` y
 `chapa-api/PRIVACY_POLICY_DRAFT.md` — y **ambas fuentes se auto-marcan como borrador sin revisión
 legal** (la segunda literalmente se titula "BORRADOR — NO PUBLICAR SIN REVISIÓN LEGAL" y tiene
 campos `<RAZÓN SOCIAL>`, `<RUC>`, `<DOMICILIO LEGAL>`, `<CORREO DE CONTACTO>`, `<N° REGISTRO ANPD>`
-sin completar). Decisión tomada con el usuario (2026-06-30): publicar igual, pero:
+sin completar). Decisión original (2026-06-30): publicar con un banner de "documento informativo,
+pendiente de revisión legal". **Decisión vigente (2026-09-18):** el banner se quitó a pedido del
+mantenedor (el único usuario actual es él mismo). Se mantiene lo demás:
 
-- Con un banner visible (`LegalPage.astro` → `.legal-notice`) que dice explícitamente "documento
-  informativo, pendiente de revisión legal" y que faltan los datos de identificación de la empresa.
-- **Sin inventar** esos datos ni un correo de contacto — donde la fuente original tenía
-  un correo de contacto ficticio, el copy dice ahora que el canal de contacto todavía no existe.
+- **Sin inventar** los datos de identificación de la empresa (razón social, RUC, domicilio, registro
+  ANPD) ni un correo de contacto — el copy dice que el canal de contacto todavía no existe.
 - Con `noindex, nofollow` (`<BaseLayout noindex>`) y excluidas de `sitemap-index.xml`
-  (`astro.config.mjs` → `sitemap({ filter: ... })`), para no indexar contenido que sabemos
-  incompleto mientras sigue siendo accesible por link directo desde el footer.
+  (`astro.config.mjs` → `sitemap({ filter: ... })`), para no indexar contenido incompleto mientras
+  sigue siendo accesible por link directo desde el footer.
 
-**Cuando haya revisión legal real:** completar `terms.astro`/`privacy.astro` con el texto
-definitivo (razón social, RUC, domicilio, correo de contacto real), quitar el banner de
-`LegalPage.astro` y quitar `noindex` + el filtro del sitemap. No hacer ninguno de esos cambios a
-medias (ej. quitar el banner pero dejar placeholders) — el estado "borrador" debe ser visible
-mientras exista.
+**Antes de abrir el registro a usuarios reales:** completar `terms.astro`/`privacy.astro` con el
+texto definitivo revisado por asesoría legal (razón social, RUC, domicilio, correo de contacto
+real) y recién ahí quitar `noindex` + el filtro del sitemap.
 
 ## Convenciones
 
