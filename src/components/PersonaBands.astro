@@ -1,0 +1,339 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const minus = '−';
+---
+
+<section id="para-quien">
+  <div class="band band--individual">
+    <div class="container band-inner">
+      <div class="band-copy" data-reveal>
+        <p class="eyebrow">para tu día a día</p>
+        <h2>Ordena tu presupuesto</h2>
+        <p>Ponle un tope a cada categoría y mira cuánto llevas gastado.</p>
+      </div>
+      <div class="band-cutout" aria-hidden="true" data-reveal>
+        <div class="band-ring-plate">
+          <div class="ring-shape">
+            <svg viewBox="0 0 200 200" width="200" height="200">
+              <circle
+                cx="100"
+                cy="100"
+                r="84"
+                fill="none"
+                stroke="color-mix(in srgb, var(--white) 30%, transparent)"
+                stroke-width="16"
+              />
+              <circle
+                cx="100"
+                cy="100"
+                r="84"
+                fill="none"
+                stroke="var(--white)"
+                stroke-width="16"
+                stroke-linecap="round"
+                stroke-dasharray="263.9 527.8"
+                stroke-dashoffset="0"
+                transform="rotate(-90 100 100)"
+              />
+              <circle
+                cx="100"
+                cy="100"
+                r="84"
+                fill="none"
+                stroke="var(--money-light)"
+                stroke-width="16"
+                stroke-linecap="round"
+                stroke-dasharray="132 527.8"
+                stroke-dashoffset="-263.9"
+                transform="rotate(-90 100 100)"
+              />
+              <circle
+                cx="100"
+                cy="100"
+                r="84"
+                fill="none"
+                stroke="var(--plin-light)"
+                stroke-width="16"
+                stroke-linecap="round"
+                stroke-dasharray="79.2 527.8"
+                stroke-dashoffset="-395.9"
+                transform="rotate(-90 100 100)"
+              />
+              <circle
+                cx="100"
+                cy="100"
+                r="84"
+                fill="none"
+                stroke="var(--warning-light)"
+                stroke-width="16"
+                stroke-linecap="round"
+                stroke-dasharray="52.8 527.8"
+                stroke-dashoffset="-475.1"
+                transform="rotate(-90 100 100)"
+              />
+            </svg>
+            <div class="ring-center">
+              <span class="ring-center-count">4</span>
+              <span class="ring-center-caption">categorías</span>
+            </div>
+          </div>
+          <p class="ring-legend"><strong>50%</strong> en Alimentación</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band band--entrepreneur">
+    <div class="container band-inner">
+      <div class="band-copy" data-reveal>
+        <p class="eyebrow">para tu negocio</p>
+        <h2>Cierra tu caja sin cuentas a mano</h2>
+        <p>Cierra el día y arranca el siguiente lote con ingresos, gastos y neto claros.</p>
+      </div>
+      <div class="band-cutout" aria-hidden="true" data-reveal>
+        <div class="band-cash-card">
+          <div class="showcase-top">
+            <span class="showcase-top-title">Balance de la caja</span>
+          </div>
+          <div class="showcase-body">
+            <p class="replica-net tone-income">+S/ 234<span class="cents">.00</span></p>
+            <div class="showcase-rows">
+              <div class="showcase-row">
+                <span class="showcase-avatar showcase-avatar--income">
+                  <Icon name="lucide:arrow-down-left" />
+                </span>
+                <span class="showcase-row-title">Cobrado</span>
+                <span class="showcase-row-value tone-income">+S/ 282.50</span>
+              </div>
+              <div class="showcase-row">
+                <span class="showcase-avatar showcase-avatar--neutral">
+                  <Icon name="lucide:arrow-up-right" />
+                </span>
+                <span class="showcase-row-title">Gastado</span>
+                <span class="showcase-row-value tone-ink">{minus}S/ 48.50</span>
+              </div>
+            </div>
+            <button class="btn btn-outline" type="button" tabindex="-1">Cerrar caja</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .band {
+    width: 100%;
+    padding-block: var(--space-xxxl);
+    color: var(--white);
+  }
+
+  .band--individual {
+    background: var(--primary);
+  }
+
+  .band--entrepreneur {
+    background: var(--money);
+  }
+
+  .band-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--space-xxxl);
+  }
+
+  .band-copy .eyebrow {
+    color: var(--white);
+    margin-bottom: var(--space-lg);
+  }
+
+  .band-copy h2 {
+    font-size: clamp(28px, 3.4vw, 40px);
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: var(--space-md);
+  }
+
+  .band-copy p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--white);
+    max-width: 42ch;
+  }
+
+  .band-cutout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .band-ring-plate {
+    background: color-mix(in srgb, var(--white) 14%, transparent);
+    border-radius: var(--radius-full);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .ring-shape {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .ring-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ring-center-count,
+  .ring-center-caption {
+    color: var(--white);
+  }
+
+  .ring-center-count {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .ring-center-caption {
+    font-size: 12px;
+  }
+
+  .ring-legend,
+  .ring-legend strong {
+    color: var(--white);
+  }
+
+  .ring-legend {
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .band-cash-card {
+    width: 100%;
+    max-width: 300px;
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lift);
+  }
+
+  .showcase-top {
+    padding: var(--space-md) var(--space-lg);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    color: var(--white);
+    background: var(--money);
+  }
+
+  .showcase-top-title {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .showcase-body {
+    padding: var(--space-lg);
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .replica-net {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--income);
+  }
+
+  .replica-net .cents {
+    font-size: calc(1em * 0.55);
+  }
+
+  .tone-income {
+    color: var(--income);
+  }
+
+  .tone-ink {
+    color: var(--ink);
+  }
+
+  .showcase-rows {
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .showcase-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .showcase-avatar {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .showcase-avatar :global(svg) {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+  }
+
+  .showcase-avatar--income {
+    background: var(--money-light);
+    color: var(--income);
+  }
+
+  .showcase-avatar--neutral {
+    background: var(--icon-bg);
+    color: var(--ink);
+  }
+
+  .showcase-row-title {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .showcase-row-value {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .band-cash-card .btn {
+    width: 100%;
+    margin-top: var(--space-sm);
+  }
+
+  @media (max-width: 760px) {
+    .band-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .band-copy p {
+      margin-inline: auto;
+    }
+
+    .band-cutout {
+      margin-top: var(--space-xl);
+    }
+  }
+</style>
