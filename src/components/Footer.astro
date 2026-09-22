@@ -23,6 +23,12 @@ const host = new URL('/', Astro.site).host;
     padding-block: var(--space-lg);
   }
 
+  @media (max-width: 759px) {
+    .footer {
+      padding-bottom: 76px;
+    }
+  }
+
   .footer-inner {
     display: flex;
     align-items: center;

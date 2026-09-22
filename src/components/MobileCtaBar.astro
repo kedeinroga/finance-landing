@@ -1,0 +1,64 @@
+---
+const LOGIN_URL = 'https://finance.kedein.com/login';
+---
+
+<div class="mobile-cta-bar">
+  <a href={LOGIN_URL} class="btn btn-primary">Iniciar sesión</a>
+</div>
+
+<style>
+  .mobile-cta-bar {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    inset-inline: 0;
+    z-index: 30;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -4px 24px rgba(15, 23, 42, 0.08);
+    padding: var(--space-md) var(--space-lg);
+    padding-bottom: max(var(--space-md), env(safe-area-inset-bottom));
+  }
+
+  .mobile-cta-bar .btn {
+    width: 100%;
+    height: 52px;
+  }
+
+  @media (max-width: 759px) {
+    .mobile-cta-bar {
+      display: flex;
+    }
+  }
+
+  /* Mejora progresiva: aparece al salir del hero (decisión 6). Referencia la view-timeline
+     nombrada `--hero-exit` que declara Hero.astro y expone `timeline-scope` en global.css. */
+  @supports (animation-timeline: view()) {
+    @media (max-width: 759px) {
+      .mobile-cta-bar {
+        animation: reveal-cta-bar linear both;
+        animation-timeline: --hero-exit;
+        animation-range: exit 0% cover 15%;
+      }
+    }
+  }
+
+  @keyframes reveal-cta-bar {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-cta-bar {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
