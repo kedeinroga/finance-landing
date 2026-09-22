@@ -13,10 +13,13 @@ html {
 body {
   font-family: var(--font-sans);
   color: var(--ink);
-  background: var(--paper);
+  background: var(--surface);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  /* Expone la view-timeline --hero-exit (declarada en Hero.astro) a MobileCtaBar.astro,
+     que vive fuera de <main> — ambos son descendientes de <body> */
+  timeline-scope: --hero-exit;
 }
 
 a {
@@ -125,12 +128,12 @@ h3 {
 
 .btn-outline {
   background: transparent;
-  border-color: currentColor;
-  color: var(--ink);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .btn-outline:hover {
-  background: var(--ink);
+  background: var(--primary);
   color: var(--white);
 }
 
@@ -196,4 +199,12 @@ h3 {
     transform: none;
     transition: none;
   }
+}
+
+/* Foco de teclado — cierra el gap documentado en landing.md (sin :focus en todo src/) */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }

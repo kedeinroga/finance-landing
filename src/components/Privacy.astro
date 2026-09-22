@@ -1,0 +1,197 @@
+---
+const cards = [
+  {
+    tall: false,
+    title: 'Solo leemos alertas bancarias',
+    body: 'Nunca accedemos a tus correos personales ni a otro tipo de contenido.',
+  },
+  {
+    tall: true,
+    title: 'La IA no aprende de tus datos',
+    body: 'Usamos Google Gemini para leer la alerta, en una modalidad que no entrena con tu contenido. Chapa tampoco entrena modelos con tus datos.',
+  },
+  {
+    tall: false,
+    title: 'Tu correo va cifrado',
+    body: 'Tu dirección de correo y tus credenciales de Gmail se guardan cifradas, nunca en texto plano.',
+  },
+];
+---
+
+<section class="privacy" id="privacidad">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <h2 class="section-title">Tu plata, tuya</h2>
+    </div>
+
+    <div class="privacy-grid" tabindex="0" aria-label="Tarjetas de privacidad">
+      {
+        cards.map((card) => (
+          <div class={`privacy-card ${card.tall ? 'privacy-card--tall' : ''}`}>
+            <h3>{card.title}</h3>
+            <p>{card.body}</p>
+          </div>
+        ))
+      }
+    </div>
+    <div class="privacy-dots" aria-hidden="true">
+      <span class="privacy-dot privacy-dot--active"></span>
+      <span class="privacy-dot"></span>
+      <span class="privacy-dot"></span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .privacy {
+    padding-block: var(--space-xxxl);
+    background: linear-gradient(160deg, var(--ink) 0%, var(--primary-deep) 100%);
+  }
+
+  .privacy .section-title {
+    color: var(--white);
+  }
+
+  .privacy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+    align-items: end;
+  }
+
+  .privacy-card {
+    background: color-mix(in srgb, var(--white) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--white) 18%, transparent);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    color: var(--white);
+  }
+
+  .privacy-card--tall {
+    padding-block: calc(var(--space-xl) + var(--space-lg));
+  }
+
+  .privacy-card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    color: var(--white);
+  }
+
+  .privacy-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--white);
+  }
+
+  .privacy-dots {
+    display: none;
+  }
+
+  .privacy-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    background: color-mix(in srgb, var(--white) 30%, transparent);
+  }
+
+  .privacy-dot--active {
+    background: var(--white);
+  }
+
+  @media (max-width: 760px) {
+    .privacy-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: var(--space-md);
+      margin: 0 calc(var(--space-lg) * -1);
+      padding-inline: var(--space-lg);
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .privacy-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .privacy-card {
+      flex: 0 0 82%;
+      scroll-snap-align: center;
+      view-timeline-axis: inline;
+    }
+
+    .privacy-card:nth-child(1) {
+      view-timeline-name: --card-1;
+    }
+
+    .privacy-card:nth-child(2) {
+      view-timeline-name: --card-2;
+    }
+
+    .privacy-card:nth-child(3) {
+      view-timeline-name: --card-3;
+    }
+
+    .privacy > .container {
+      timeline-scope: --card-1, --card-2, --card-3;
+    }
+
+    .privacy-dots {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+    }
+  }
+
+  /* Con soporte de animation-timeline: cada punto se activa vía su propia view-timeline nombrada,
+     sin JS (decisión 11) — el fallback estático de arriba (primer punto activo fijo) queda anulado. */
+  @supports (animation-timeline: view()) {
+    @keyframes privacy-dot-activate {
+      from {
+        background-color: var(--white);
+      }
+      to {
+        background-color: var(--white);
+      }
+    }
+
+    .privacy-dot--active {
+      background: color-mix(in srgb, var(--white) 30%, transparent);
+    }
+
+    .privacy-dot:nth-child(1) {
+      animation: privacy-dot-activate linear;
+      animation-timeline: --card-1;
+      animation-range: cover 35% cover 65%;
+    }
+
+    .privacy-dot:nth-child(2) {
+      animation: privacy-dot-activate linear;
+      animation-timeline: --card-2;
+      animation-range: cover 35% cover 65%;
+    }
+
+    .privacy-dot:nth-child(3) {
+      animation: privacy-dot-activate linear;
+      animation-timeline: --card-3;
+      animation-range: cover 35% cover 65%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .privacy-grid {
+      scroll-behavior: auto;
+    }
+
+    .privacy-dot {
+      animation: none !important;
+      background: color-mix(in srgb, var(--white) 30%, transparent);
+    }
+
+    .privacy-dot--active {
+      background: var(--white);
+    }
+  }
+</style>
