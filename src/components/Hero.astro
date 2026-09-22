@@ -6,75 +6,66 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
 ---
 
 <section class="hero" id="top">
-  <div class="hero-bg" aria-hidden="true"></div>
   <div class="container hero-inner">
     <div class="hero-copy">
-      <p class="eyebrow">Captura por correo · Yape &amp; Plin</p>
+      <p class="eyebrow">finanzas para Perú</p>
       <h1>
         Tu dinero,<br />
         todo en <em>un lugar</em>.
       </h1>
       <p class="hero-subtitle">
-        Reenvía la alerta de Yape o de tu banco, conecta tu Gmail o anótalo a mano. Chapa registra
-        tus movimientos y los deja ordenados.
+        Reenvía la alerta de Yape, Plin o tu banco por correo, conecta tu Gmail o anótalo a mano.
+        Todo entra al mismo dashboard.
       </p>
       <div class="hero-actions">
-        <a href={LOGIN_URL} class="btn btn-primary">Iniciar sesión</a>
+        <a href={LOGIN_URL} class="btn btn-on-dark">Iniciar sesión</a>
       </div>
     </div>
 
-    <div class="hero-demo" aria-hidden="true">
-      <div class="email-banner">
-        <span class="email-icon"><Icon name="lucide:mail" /></span>
-        <div class="email-text">
-          <strong>Alerta bancaria detectada</strong>
-          <span>Yape · Pago recibido +S/ 35.00</span>
+    <div class="hero-replica" aria-hidden="true">
+      <div class="replica-card">
+        <div class="replica-top">
+          <p class="replica-kicker">Gasto de hoy</p>
+          <p class="replica-amount">S/ 514<span class="cents">.40</span></p>
+          <p class="replica-total">Gastos de {monthLabel}: S/ 4,555.83</p>
         </div>
-      </div>
-
-      <div class="app-card">
-        <div class="app-card-top">
-          <p class="app-card-kicker">Gasto de hoy</p>
-          <p class="app-card-amount">S/ 42.30</p>
-        </div>
-        <div class="app-card-bottom">
-          <p class="app-card-label">Balance de {monthLabel}</p>
-          <div class="balance-cols">
-            <div class="balance-col">
-              <span>Ingresos</span>
-              <strong class="income">S/ 1,240.00</strong>
+        <div class="replica-body">
+          <div class="replica-toprow">
+            <span class="replica-label">Balance de {monthLabel}</span>
+            <span class="replica-label">47 movimientos</span>
+          </div>
+          <p class="replica-net tone-income">+S/ 1,564<span class="cents">.17</span></p>
+          <div class="replica-cols">
+            <div>
+              <span class="replica-col-label">Ingresos</span>
+              <span class="replica-col-value tone-income">S/ 6,120.00</span>
             </div>
-            <div class="balance-col">
-              <span>Egresos</span>
-              <strong class="expense">S/ 486.30</strong>
-            </div>
-            <div class="balance-col">
-              <span>Neto</span>
-              <strong class="income">S/ 753.70</strong>
+            <div>
+              <span class="replica-col-label">Egresos</span>
+              <span class="replica-col-value tone-ink">S/ 4,555.83</span>
             </div>
           </div>
 
-          <p class="app-card-label movements-label">Últimos movimientos</p>
-          <div class="ledger-row ledger-row-new">
-            <span class="pill" style="background:var(--yape-light);color:var(--yape)">
-              <span class="pill-dot"></span>Yape
+          <p class="replica-label replica-rows-label">Últimos movimientos</p>
+          <div class="replica-row">
+            <span class="replica-avatar replica-avatar--income">
+              <Icon name="lucide:briefcase" />
             </span>
-            <span class="ledger-row-text">Juan Pérez</span>
-            <span class="ledger-row-amount">+S/ 35.00</span>
+            <span class="replica-row-main">
+              <span class="replica-row-title">Ana Torres</span>
+              <span class="replica-row-sub">Trabajo / Freelance · Yape</span>
+            </span>
+            <span class="replica-row-amount tone-income">+S/ 35.00</span>
           </div>
-          <div class="ledger-row">
-            <span class="pill" style="background:var(--plin-light);color:var(--plin-dark)">
-              <span class="pill-dot"></span>Plin
+          <div class="replica-row">
+            <span class="replica-avatar replica-avatar--income">
+              <Icon name="lucide:dollar-sign" />
             </span>
-            <span class="ledger-row-text">María Flores</span>
-            <span class="ledger-row-amount">+S/ 60.00</span>
-          </div>
-          <div class="ledger-row">
-            <span class="pill" style="background:var(--warning-light);color:var(--warning)">
-              <span class="pill-dot"></span>Mercado
+            <span class="replica-row-main">
+              <span class="replica-row-title">Diego Ramírez</span>
+              <span class="replica-row-sub">Transferencia recibida · Plin</span>
             </span>
-            <span class="ledger-row-text">Tottus</span>
-            <span class="ledger-row-amount expense">-S/ 42.30</span>
+            <span class="replica-row-amount tone-income">+S/ 120.00</span>
           </div>
         </div>
       </div>
@@ -86,15 +77,11 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
   .hero {
     position: relative;
     overflow: hidden;
-    padding-block: var(--space-xxl) calc(var(--space-xxxl) * 1.3);
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 18% 20%, var(--primary-light) 0%, transparent 45%),
-      radial-gradient(circle at 85% 0%, var(--yape-light) 0%, transparent 35%);
-    z-index: -1;
+    padding-block: var(--space-xxl) var(--space-xxxl);
+    background: linear-gradient(160deg, var(--primary-deep) 0%, var(--primary) 100%);
+    /* Expone la fase "exit" del hero a MobileCtaBar.astro (fuera de <main>) vía timeline-scope en global.css */
+    view-timeline-name: --hero-exit;
+    view-timeline-axis: block;
   }
 
   .hero-inner {
@@ -105,7 +92,7 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
   }
 
   .eyebrow {
-    color: var(--primary-deep);
+    color: var(--white);
     margin-bottom: var(--space-lg);
   }
 
@@ -114,19 +101,18 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
     font-weight: 600;
     line-height: 1.05;
     letter-spacing: -0.01em;
-    color: var(--ink);
+    color: var(--white);
     margin-bottom: var(--space-lg);
   }
 
   h1 em {
     font-style: italic;
-    color: var(--primary);
   }
 
   .hero-subtitle {
     font-size: 18px;
     line-height: 1.6;
-    color: var(--text-secondary);
+    color: var(--white);
     max-width: 46ch;
     margin-bottom: var(--space-xl);
   }
@@ -137,68 +123,13 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
     gap: var(--space-md);
   }
 
-  /* Demo: correo bancario detectado que cae dentro del registro */
-  .hero-demo {
-    position: relative;
+  .hero-replica {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 56px;
-  }
-
-  .email-banner {
-    position: absolute;
-    top: 0;
-    width: calc(100% - 24px);
-    max-width: 320px;
-    background: var(--white);
-    border-radius: var(--radius-md);
-    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
-    padding: var(--space-sm) var(--space-md);
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    animation: email-cycle 7s var(--ease) infinite;
-  }
-
-  .email-icon {
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
-    border-radius: var(--radius-sm);
-    background: var(--primary);
-    color: var(--white);
-    font-family: var(--font-display);
-    font-weight: 700;
-    display: flex;
-    align-items: center;
     justify-content: center;
   }
 
-  .email-icon :global(svg) {
-    width: 18px;
-    height: 18px;
-    stroke-width: 2;
-    color: var(--white);
-  }
-
-  .email-text {
-    display: flex;
-    flex-direction: column;
-    font-size: 13px;
-    line-height: 1.4;
-  }
-
-  .email-text strong {
-    font-size: 13px;
-  }
-
-  .email-text span {
-    color: var(--text-secondary);
-  }
-
-  /* Espejo del hero card del dashboard: dos zonas, único elemento elevado del demo */
-  .app-card {
+  /* Réplica de IndividualDashboard.tsx (Home Individuo) — tarjeta única, jerarquía de un elemento */
+  .replica-card {
     width: 100%;
     max-width: 340px;
     background: var(--white);
@@ -207,80 +138,101 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
     box-shadow: var(--shadow-lift);
   }
 
-  .app-card-top {
+  .replica-top {
     background: var(--primary);
     padding: var(--space-lg);
     text-align: center;
   }
 
-  .app-card-kicker {
+  .replica-kicker {
     font-family: var(--font-sans);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--white);
     margin-bottom: var(--space-xs);
   }
 
-  .app-card-amount {
-    font-family: var(--font-sans);
+  .replica-amount {
+    font-family: var(--font-display);
     font-size: 34px;
     font-weight: 700;
     color: var(--white);
     font-variant-numeric: tabular-nums;
   }
 
-  .app-card-bottom {
+  .replica-amount .cents {
+    font-size: calc(1em * 0.55);
+  }
+
+  .replica-total {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    margin-top: var(--space-xs);
+  }
+
+  .replica-body {
     background: var(--surface-tint);
     padding: var(--space-lg);
     display: grid;
     gap: var(--space-sm);
   }
 
-  .app-card-label {
+  .replica-toprow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .replica-label {
     font-size: 13px;
     font-weight: 600;
     color: var(--text-muted);
   }
 
-  .movements-label {
-    margin-top: var(--space-sm);
+  .replica-net {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
   }
 
-  .balance-cols {
+  .replica-net .cents {
+    font-size: calc(1em * 0.55);
+  }
+
+  .tone-income {
+    color: var(--income);
+  }
+
+  .tone-ink {
+    color: var(--ink);
+  }
+
+  .replica-cols {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-sm);
-    text-align: center;
   }
 
-  .balance-col {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .balance-col span {
-    font-size: 11px;
+  .replica-col-label {
+    font-size: 12px;
     color: var(--text-muted);
+    display: block;
   }
 
-  .balance-col strong {
+  .replica-col-value {
     font-family: var(--font-sans);
     font-size: 15px;
     font-weight: 700;
   }
 
-  .balance-col .income {
-    color: var(--income);
+  .replica-rows-label {
+    margin-top: var(--space-sm);
   }
 
-  .balance-col .expense {
-    color: var(--expense);
-  }
-
-  .ledger-row {
+  .replica-row {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
@@ -290,86 +242,51 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
     font-size: 14px;
   }
 
-  .ledger-row-text {
+  .replica-avatar {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .replica-avatar :global(svg) {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+  }
+
+  .replica-avatar--income {
+    background: var(--money-light);
+    color: var(--income);
+  }
+
+  .replica-row-main {
     flex: 1;
-    color: var(--text-secondary);
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .replica-row-title {
+    color: var(--ink);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  .ledger-row-amount {
+  .replica-row-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .replica-row-amount {
     font-weight: 700;
-    color: var(--income);
-  }
-
-  .ledger-row-amount.expense {
-    color: var(--expense);
-  }
-
-  .ledger-row-new {
-    animation: row-cycle 7s var(--ease) infinite;
-  }
-
-  @keyframes email-cycle {
-    0% {
-      opacity: 0;
-      transform: translateY(-16px);
-    }
-    8% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    34% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    42% {
-      opacity: 0;
-      transform: translateY(-16px);
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(-16px);
-    }
-  }
-
-  @keyframes row-cycle {
-    0% {
-      opacity: 0;
-      background: transparent;
-    }
-    38% {
-      opacity: 0;
-      background: transparent;
-    }
-    46% {
-      opacity: 1;
-      background: var(--money-light);
-    }
-    70% {
-      opacity: 1;
-      background: transparent;
-    }
-    94% {
-      opacity: 1;
-      background: transparent;
-    }
-    100% {
-      opacity: 0;
-      background: transparent;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .email-banner {
-      animation: none;
-      opacity: 1;
-    }
-    .ledger-row-new {
-      animation: none;
-      opacity: 1;
-    }
   }
 
   @media (max-width: 860px) {
@@ -386,7 +303,7 @@ const monthLabel = new Intl.DateTimeFormat('es-PE', { month: 'long' }).format(ne
       justify-content: center;
     }
 
-    .hero-demo {
+    .hero-replica {
       margin-top: var(--space-xl);
     }
   }
