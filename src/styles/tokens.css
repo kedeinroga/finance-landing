@@ -23,11 +23,11 @@
   --text-muted: #6e6e6e;
   --border: #e0e0e0;
 
-  /* Capa editorial — calidez de papel en vez de blanco clínico, propia de esta landing */
-  --paper: #faf7f1;
+  /* Capa editorial */
   --surface: #ffffff;
   --surface-tint: #f7f9f8; /* surface de la app — solo para demos de producto fieles al dashboard */
   --ink: #16181d;
+  --icon-bg: #eef2f6; /* fondo de IconAvatar tono neutral — theme.ts:31 */
 
   --space-xs: 4px;
   --space-sm: 8px;
