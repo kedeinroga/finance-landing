@@ -1,0 +1,6 @@
+# Registered exceptions for the dependency gate (.github/scripts/security-gate.sh).
+# Every entry needs ignoreUntil and reason; the gate fails once ignoreUntil has passed.
+[[IgnoredVulns]]
+id = "GHSA-26w7-cxv4-gfx2"
+ignoreUntil = 2026-10-24
+reason = "astro@5.18.2 critical advisory; upgrade tracked as a follow-up outside the governance plan"
