@@ -9,8 +9,8 @@ Landing de marketing de Chapa. Sitio estático en **Astro**, desplegado en Cloud
 - [Astro](https://docs.astro.build/) 5, salida estática (`output: 'static'`, sin adapter SSR).
 - Sin framework de UI: componentes `.astro` + CSS plano (sin Tailwind ni CSS-in-JS).
 - `@astrojs/sitemap` para `sitemap-index.xml` (excluye `/terms` y `/privacy`, ver más abajo).
-- `astro-icon` + `@iconify-json/lucide` para los íconos de `Features.astro` y `Capabilities.astro` — se renderizan como SVG
-  inline en build, cero JS en cliente y cero requests extra.
+- `astro-icon` + `@iconify-json/lucide` para los íconos de `Hero`, `Features`, `Capabilities`, `ProductShowcase` y `PersonaBands` — se
+  renderizan como SVG inline en build, cero JS en cliente y cero requests extra.
 - TypeScript estricto (`astro/tsconfigs/strict`); `astro check` corre como parte de `build`.
 
 ## Setup
@@ -39,13 +39,17 @@ src/
 │   └── BaseLayout.astro     # <html>/<head>, fuentes Google Fonts, meta SEO + Open Graph
 ├── components/
 │   ├── Header.astro         # nav sticky: logo + anchors (#captura/#funciones/#para-quien) + CTA
-│   ├── Hero.astro           # headline, demo CSS-only "notificación → registro" (sin JS)
+│   ├── Hero.astro           # h1 + CTA sobre gradiente azul y réplica estática de Home Individuo (id="top")
+│   ├── FactsStrip.astro     # franja de 3 hechos verificables (id="hechos")
 │   ├── Features.astro       # "Cómo captura" — 4 formas de registrar, rejilla asimétrica (id="captura")
+│   ├── ProductShowcase.astro # "Analiza tu plata" — copy + réplicas de Análisis y Balance de la caja (id="analiza-tu-plata")
 │   ├── Capabilities.astro   # "Funciones" — lista de 10 capacidades de la app, con marca Beta (id="funciones")
-│   ├── AudienceSplit.astro  # Individuo vs. Emprendedor, dos columnas (id="para-quien")
+│   ├── PersonaBands.astro   # bandas Individuo (azul) y Emprendedor (verde) con recorte de producto (id="para-quien")
+│   ├── Privacy.astro        # 3 tarjetas de privacidad; carrusel scroll-snap con puntos en móvil (id="privacidad")
 │   ├── HowItWorks.astro     # 3 pasos numerados (id="como-funciona")
 │   ├── CTA.astro            # llamada a la acción final
 │   ├── Footer.astro         # logo + links a /terms y /privacy (propias de este sitio) + copyright
+│   ├── MobileCtaBar.astro   # barra fija "Iniciar sesión" solo en móvil; aparece al salir del hero
 │   └── LegalPage.astro      # layout compartido por terms.astro/privacy.astro (lista de
 │                              secciones título/cuerpo)
 ├── pages/
@@ -53,8 +57,8 @@ src/
 │   ├── terms.astro           # /terms — noindex (ver "Contenido legal" más abajo)
 │   └── privacy.astro         # /privacy — noindex (ver "Contenido legal" más abajo)
 └── styles/
-    ├── tokens.css            # variables CSS: paleta Chapa + capa editorial (paper/ink/fuentes)
-    └── global.css            # reset + utilitarias (.container, .btn-*, .pill, .tag-beta, [data-reveal])
+    ├── tokens.css            # variables CSS: paleta Chapa + capa editorial (surface/ink/fuentes)
+    └── global.css            # reset + utilitarias (.container, .btn-*, .eyebrow, .tag-beta, [data-reveal], foco visible)
 public/
 ├── logo.png                  # copiado de chapa-app/assets/icon.png
 ├── favicon.png                # copiado de chapa-app/assets/favicon.png
@@ -72,8 +76,11 @@ nav, y usar las variables de `tokens.css` en vez de literales.
 **Animaciones:** los elementos con `data-reveal` empiezan en `opacity:0` y `reveal.js` les agrega
 `is-visible` vía `IntersectionObserver` cuando entran al viewport — si agregas contenido nuevo que
 deba revelarse al hacer scroll, ponle el atributo `data-reveal` (opcional `style="transition-delay:
-0.1s"` para escalonar varios). El demo del hero (notificación → fila del registro) es CSS puro
-(`@keyframes notif-cycle` / `row-cycle` en `Hero.astro`), no depende de JS ni de scroll.
+0.1s"` para escalonar varios). Dos comportamientos ligados a scroll son CSS puro, sin JS, con
+`animation-timeline` dentro de `@supports` y fallback estático: la barra móvil (`MobileCtaBar`, que
+se liga a la `view-timeline` `--hero-exit` declarada en `Hero.astro` y expuesta con
+`timeline-scope` en `body`) y los puntos del carrusel de `Privacy`. El Hero no tiene animación
+propia.
 
 ## Branding — fuente de verdad
 
@@ -93,11 +100,11 @@ Expo/RN). Si la marca cambia ahí, hay que portar el cambio a mano:
 - **Tokens de color/spacing/radius**: `chapa-app/src/presentation/constants/theme.ts` → portados a
   `src/styles/tokens.css`. Colores de Yape/Plin también vienen de ahí (`--yape #742F86`, `--plin
   #00B0FF`) y se usan en los demos de la landing.
-- **Los demos CSS deben espejar la UI shippeada**: el demo del hero (`.app-card` en `Hero.astro`)
-  replica el hero card de dos zonas del dashboard rediseñado de la app — dentro del demo se usa
-  `--font-sans` y `--surface-tint` (el `--surface` de la app), no la capa editorial. Referencia
-  cruzada al lenguaje de diseño de la app y al rediseño del dashboard (documentos del workspace
-  privado del mantenedor).
+- **Los demos CSS deben espejar la UI shippeada**: el Hero (`.replica-card` en `Hero.astro`)
+  replica el Home Individuo del dashboard v2 de la app, y `ProductShowcase`/`PersonaBands` replican
+  las pantallas de Análisis y Mi Caja. Son bloques estáticos `aria-hidden` con cifras y nombres
+  ficticios; dentro de ellos se usa `--font-sans` y `--surface-tint` (el `--surface` de la app).
+  Si cambia esa UI en la app, hay que portar el cambio a mano.
 - **Patrones visuales heredados** (gradiente, card, botones de la app): tomados de las
   páginas HTML de verify-email/reset-password en `chapa-api/Caddyfile`.
 - **Tagline oficial**: "Tu dinero, todo en un lugar".
@@ -106,14 +113,14 @@ Expo/RN). Si la marca cambia ahí, hay que portar el cambio a mano:
 
 **Capa editorial propia de esta landing (no existe en la app):** la app usa tipografía de sistema
 sin marca; para la landing se eligió una dirección "editorial fintech" — serif `Fraunces` para
-headlines + `Instrument Sans` para cuerpo (cargadas desde Google Fonts en `BaseLayout.astro`), y un
-fondo cálido `--paper: #FAF7F1` en vez de blanco clínico, para diferenciar la landing de marketing
-del dashboard funcional sin romper la identidad de color. Si se decide unificar tipografía
-landing/app en el futuro, es una decisión de marca a tomar explícitamente, no una deuda técnica.
+headlines + `Plus Jakarta Sans` para cuerpo (cargadas desde Google Fonts en `BaseLayout.astro`).
+El fondo cálido `--paper` de la versión anterior se retiró con el rediseño v2: hoy el fondo es
+`--surface` (blanco), alineado con la app. Si se decide unificar tipografía landing/app en el
+futuro, es una decisión de marca a tomar explícitamente, no una deuda técnica.
 
-**Contenido que NO se inventa:** no hay testimonios (Chapa no tiene usuarios públicos todavía — la
-sección de Clever que los usa como inspiración se mapeó a un diferenciador real, "Para quién", en
-vez de fabricar nombres/citas). No hay sección de planes ni precios: el registro y el billing están
+**Contenido que NO se inventa:** no hay testimonios (Chapa no tiene usuarios públicos todavía — en
+su lugar hay una franja de hechos verificables, "Para quién" y una sección de privacidad, en vez de
+fabricar nombres/citas). No hay sección de planes ni precios: el registro y el billing están
 apagados en producción, así que la landing solo ofrece iniciar sesión. Si se reabren, hay que
 restaurar la sección de planes desde el historial de git (`PlanComparison.astro`) y volver a agregar
 un CTA de alta.
