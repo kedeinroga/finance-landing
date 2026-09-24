@@ -45,6 +45,30 @@ y el billing están apagados en producción, así que el único CTA es "Iniciar 
 - Verificación (sin tests ni linter): `npm run build` (0 errores) + pase visual `npm run dev` a
   375/768/1280px + consola sin violaciones CSP.
 
+## Gates de seguridad (CI)
+
+`.github/workflows/security.yml` corre en cada push y PR (llamado desde el workflow de deploy),
+cada lunes y a demanda. El job `security` bloquea el job `deploy`, también el preview de PR (`*.pages.dev`). Ejecuta `.github/scripts/security-gate.sh package-lock.json`, que hace
+cuatro verificaciones y termina con un veredicto `PASS`/`FAIL`:
+
+- **Excepciones**: cada excepción registrada debe traer motivo y, salvo las marcadas `never`,
+  una fecha de vencimiento; una vencida o sin motivo hace fallar el gate.
+- **Secretos** (gitleaks): sobre todo el historial git.
+- **Dependencias** (osv-scanner sobre `package-lock.json`): bloquea si algún aviso tiene CVSS >= 9; los
+  HIGH (7.0-8.9) se informan sin bloquear. Un aviso sin puntaje CVSS no se evalúa.
+- **SAST** (Semgrep, reglas `p/typescript`, `p/nodejs`, `p/security-audit`): bloquea con severidad ERROR.
+
+Ejecución local: con `gitleaks`, `osv-scanner` y `semgrep` en el PATH, `.github/scripts/security-gate.sh package-lock.json`.
+El script `security-gate.sh` es una copia compartida con otros repos del mantenedor: no lo edites solo aquí.
+
+Excepciones (siempre con motivo y vencimiento, en el mismo commit que las necesita):
+
+- Dependencia: `osv-scanner.toml`, `[[IgnoredVulns]]` con `id`, `ignoreUntil = YYYY-MM-DD` y `reason`.
+- Secreto ya revisado: `.gitleaksignore`, la huella del hallazgo precedida por el comentario
+  `# expires=YYYY-MM-DD reason="..."` (o `expires=never` si es un falso positivo permanente).
+- SAST: comentario en la línea anterior al código,
+  `// nosemgrep: <regla> -- expires=YYYY-MM-DD reason="..."` (`never` no se permite).
+
 ## Comandos
 
 ```bash

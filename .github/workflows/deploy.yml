@@ -17,7 +17,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Blocks the deploy job below (including the PR preview) when the gate fails.
+  security:
+    uses: ./.github/workflows/security.yml
+
   deploy:
+    needs: security
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
